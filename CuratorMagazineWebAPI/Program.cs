@@ -12,7 +12,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddDataProtection().PersistKeysToDbContext<CuratorMagazineContext>();
-
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
