@@ -25,7 +25,7 @@ namespace CuratorMagazineWebAPI.Controllers
             return await _db.Roles.ToListAsync();
         }
 
-        // GET api/roles/5
+        // GET api/role/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Role>> Get(int id)
         {
@@ -35,7 +35,7 @@ namespace CuratorMagazineWebAPI.Controllers
             return new ObjectResult(role);
         }
 
-        // POST api/roles
+        // POST api/role
         [HttpPost]
         public async Task<ActionResult<Role>> Post(Role role)
         {
@@ -49,7 +49,7 @@ namespace CuratorMagazineWebAPI.Controllers
             return Ok(role);
         }
 
-        // PUT api/roles/
+        // PUT api/role/
         [HttpPut]
         public async Task<ActionResult<Role>> Put(Role role)
         {
@@ -68,7 +68,7 @@ namespace CuratorMagazineWebAPI.Controllers
             return Ok(role);
         }
 
-        // DELETE api/roles/5
+        // DELETE api/role/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<User>> Delete(int id)
         {
