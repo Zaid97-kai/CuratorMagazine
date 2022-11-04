@@ -27,7 +27,21 @@ namespace CuratorMagazineWebAPI.Models.EntityTypeConfigurations
                 .WithMany(x => x.Users)
                 .HasForeignKey(x => x.DivisionId)
                 .IsRequired(false)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Cascade);            
+            
+            builder
+                .HasOne(x => x.Role)
+                .WithMany(x => x.Users)
+                .HasForeignKey(x => x.RoleId)
+                .IsRequired(true)
+                .OnDelete(DeleteBehavior.Cascade);            
+            
+            builder
+                .HasOne(x => x.Group)
+                .WithMany(x => x.Users)
+                .HasForeignKey(x => x.GroupId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

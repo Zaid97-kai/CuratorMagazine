@@ -10,18 +10,17 @@
         public string Email { get; set; }
         public string Phone { get; set; }
         public byte[]? ProfilePhoto { get; set; }
-        //public int RoleId { get; set; } мб добавим? его тут не было
-        public virtual Role Role { get; set; }
-        public int DivisionId { get; set; }
-        public virtual Division Division { get; set; }
         public DateTime? BirthDate { get; set; }
         public string? Address { get; set; }
         public int? MotherId { get; set; }
-        public Parent? Mother { get; set; }
+        public virtual Parent? Mother { get; set; }
         public int? FatherId { get; set; }
-        public Parent? Father { get; set; }
-        //public int GroupId { get; set; } мб добавим? его тут не было
-        public Group? Group { get; set; }
-
+        public virtual Parent? Father { get; set; }
+        public int? GroupId { get; set; }
+        public virtual Group? Group { get; set; }
+        public int RoleId { get; set; }
+        public virtual Role Role { get; set; }
+        public int DivisionId { get; set; }
+        public virtual Division Division { get; set; }
     }
 }

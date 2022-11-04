@@ -14,26 +14,29 @@ namespace CuratorMagazineWebAPI.Controllers
 
         public UserController(CuratorMagazineContext context)
         {
-            //_db = context;
-            //if (_db.Users.Any()) return;
-            //_db.Users.Add(new User()
-            //{
-            //    Name = "Test",
-            //    Email = "TestMail",
-            //    Phone = "TestPhone",
-            //    ProfilePhoto = null,
-            //    DivisionId = 1,
-            //    BirthDate = null,
-            //    Address = "TestAddress",
-
-            //});
-            //_db.SaveChanges();
+            _db = context;
+            if (_db.Users.Any()) return;
+            var user = new User()
+            {
+                Name = "Test",
+                Email = "TestMail",
+                Phone = "TestPhone",
+                ProfilePhoto = null,
+                DivisionId = 1,
+                BirthDate = null,
+                Address = "TestAddress",
+                Role = _db.Roles.ToList().FirstOrDefault(),
+            };
+            _db.Users.Add(user);
+            _db.Roles.ToList().FirstOrDefault().Users.Add(user);
+            _db.SaveChanges();
         }
 
         // GET: api/user 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> Get()
         {
+            var list = await _db.Users.ToListAsync();
             return await _db.Users.ToListAsync();
         }
 
