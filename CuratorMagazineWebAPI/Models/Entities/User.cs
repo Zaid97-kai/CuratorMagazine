@@ -10,6 +10,7 @@
         public string Email { get; set; }
         public string Phone { get; set; }
         public byte[]? ProfilePhoto { get; set; }
+        //public int RoleId { get; set; } мб добавим? его тут не было
         public virtual Role Role { get; set; }
         public int DivisionId { get; set; }
         public virtual Division Division { get; set; }
@@ -19,6 +20,7 @@
         public Parent? Mother { get; set; }
         public int? FatherId { get; set; }
         public Parent? Father { get; set; }
+        //public int GroupId { get; set; } мб добавим? его тут не было
         public Group? Group { get; set; }
 
     }
