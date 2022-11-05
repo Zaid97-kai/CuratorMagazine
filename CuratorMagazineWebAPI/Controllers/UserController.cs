@@ -6,30 +6,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CuratorMagazineWebAPI.Controllers
 {
+    /// <summary>
+    /// Контроллер UserController
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : Controller
     {
         private readonly CuratorMagazineContext _db;
 
+        /// <summary>
+        /// Конструктор класса UserController
+        /// </summary>
+        /// <param name="context"></param>
         public UserController(CuratorMagazineContext context)
         {
             _db = context;
             if (_db.Users.Any()) return;
-            var user = new User()
-            {
-                Name = "Test",
-                Email = "TestMail",
-                Phone = "TestPhone",
-                ProfilePhoto = null,
-                DivisionId = 1,
-                BirthDate = null,
-                Address = "TestAddress",
-                Role = _db.Roles.ToList().FirstOrDefault(),
-            };
-            _db.Users.Add(user);
-            _db.Roles.ToList().FirstOrDefault().Users.Add(user);
-            _db.SaveChanges();
         }
 
         // GET: api/user 

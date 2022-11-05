@@ -11,12 +11,14 @@ namespace CuratorMagazineWebAPI.Controllers
     {
         private readonly CuratorMagazineContext _db;
 
+        /// <summary>
+        /// Конструктор класса RoleController
+        /// </summary>
+        /// <param name="context">Контекст данных CuratorMagazineContext</param>
         public RoleController(CuratorMagazineContext context)
         {
             _db = context;
             if (_db.Roles.Any()) return;
-            _db.Roles.Add(new Role() { Name = "Test" });
-            _db.SaveChanges();
         }
 
         [HttpGet]
@@ -26,7 +28,7 @@ namespace CuratorMagazineWebAPI.Controllers
         }
 
         // GET api/role/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<Role>> Get(int id)
         {
             var role = await _db.Roles.FirstOrDefaultAsync(x => x.Id == id);

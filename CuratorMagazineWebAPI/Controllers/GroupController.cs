@@ -16,8 +16,6 @@ namespace CuratorMagazineWebAPI.Controllers
         {
             _db = context;
             if (_db.Groups.Any()) return;
-            _db.Groups.Add(new Group() { Name = "Test" });
-            _db.SaveChanges();
         }
 
         // GET: api/group

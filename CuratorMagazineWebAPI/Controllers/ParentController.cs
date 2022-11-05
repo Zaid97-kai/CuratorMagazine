@@ -16,12 +16,6 @@ namespace CuratorMagazineWebAPI.Controllers
         {
             _db = context;
             if (_db.Parents.Any()) return;
-            _db.Parents.Add(new Parent() { 
-                Name = "Test", 
-                WorkName = "TestWorkName", 
-                Phone = "TestPhoneNumber"
-            });
-            _db.SaveChanges();
         }
 
         // GET: api/parent

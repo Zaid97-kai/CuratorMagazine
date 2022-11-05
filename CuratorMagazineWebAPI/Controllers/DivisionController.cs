@@ -16,10 +16,7 @@ namespace CuratorMagazineWebAPI.Controllers
         {
             _db = context;
             if (_db.Divisions.Any()) return;
-            _db.Divisions.Add(new Division() { Name = "Test" });
-            _db.SaveChanges();
         }
-
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Division>>> Get()
