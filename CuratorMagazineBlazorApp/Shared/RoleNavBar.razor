@@ -1,0 +1,60 @@
+﻿
+@if (Role == "Начальник УВР")
+{
+    <div class="collapse" id="navbarToggleExternalContent">
+        <ul class="nav nav-pills nav-fill bg-secondary bg-opacity-50">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="../DirectorEW/dew1.html">РАБОТА С ЗАМЕСТИТЕЛЕМ ДИРКЕТОРА ВР</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="../DirectorEW/dew2.html">СБОР СТАТИСТИКИ</a>
+            </li>
+        </ul>
+    </div>
+}
+else if (Role == "Замачальника УВР")
+{
+    <div class="collapse" id="navbarToggleExternalContent">
+        <ul class="nav nav-pills nav-fill bg-secondary bg-opacity-50">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="../ViceDirectorEW/vdew1.html">РАБОТА С ГРУППОЙ</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="../ViceDirectorEW/vdew2.html">РАБОТА С КУРАТОРОМ</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="../ViceDirectorEW/vdew3.html">СБОР СТАТИСТИКИ</a>
+            </li>
+        </ul>
+    </div>
+}
+else if (Role == "Куратор-наставник")
+{
+    <div class="collapse" id="navbarToggleExternalContent">
+        <ul class="nav nav-pills nav-fill bg-secondary bg-opacity-50">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="../Curator/cur1.html">РАБОТА С ГРУППОЙ</a>
+            </li>
+        </ul>
+    </div>
+}
+else
+{
+    <div class="collapse " id="navbarToggleExternalContent">
+        <ul class="nav nav-pills nav-fill bg-secondary bg-opacity-50">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/DirectorEW/DirectorEW.html">НАЧАЛЬНИК УВР</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/ViceDirectorEW/ViceDirectorEW.html">ЗАМДИРЕКТОРА ПО ВР</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/Curator/Curator.html">КУРАТОР-НАСТАВНИК</a>
+            </li>
+        </ul>
+    </div>
+}
+@code {
+    [Parameter]
+    public string Role { get; set; }
+}
