@@ -1,0 +1,19 @@
+﻿<header  class="container">
+    <MainHeader Role="@Role"></MainHeader>
+    <ModalWindowEnter RoleCallback="@SetRole"></ModalWindowEnter>
+    <NavBar></NavBar>
+    <RoleNavBar></RoleNavBar>
+    <CarouselComponent></CarouselComponent>
+    <MainBody></MainBody>
+</header>
+
+@code {
+    [Parameter]
+    public string? Role { get; set; }
+
+    public void SetRole(string role)
+    {
+        Role = role;
+    }
+}
+ 

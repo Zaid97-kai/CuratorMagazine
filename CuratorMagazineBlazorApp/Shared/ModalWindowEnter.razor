@@ -1,6 +1,5 @@
 ﻿@using CuratorMagazineWebAPI.Models.Entities
 @using Microsoft.AspNetCore.Components
-@using Microsoft.AspNetCore.Mvc
 @using Newtonsoft.Json
 @using JsonSerializer = System.Text.Json.JsonSerializer
 
@@ -11,7 +10,7 @@
                 <h5 class="modal-title">ВОЙТИ В ЛИЧНЫЙ КАБИНЕТ</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <Form Model="@model"
+            <Form Model="@_model"
                   OnFinish="OnFinish"
                   OnFinishFailed="OnFinishFailed"
                   LabelColSpan="8"
@@ -34,31 +33,41 @@
 
 @code {
 
-    private User model = new User();
+    private User _model = new User();
+
+    [Parameter]
+    public EventCallback<string> RoleCallback { get; set; }
 
     private void OnFinish(EditContext editContext)
     {
-        Console.WriteLine($"Success:{JsonSerializer.Serialize(model)}");
+        Console.WriteLine($"Success:{JsonSerializer.Serialize(_model)}");
     }
 
     private void OnFinishFailed(EditContext editContext)
     {
-        Console.WriteLine($"Failed:{JsonSerializer.Serialize(model)}");
+        Console.WriteLine($"Failed:{JsonSerializer.Serialize(_model)}");
     }
 
-    private async void Authorization()
+    public async void Authorization()
     {
-        Console.WriteLine($"{model.Password}");
-
-        List<User> users = new List<User>();
+        var users = new List<User>();
         using (var httpClient = new HttpClient())
         {
             using (var response = await httpClient.GetAsync("https://localhost:7217/api/User"))
             {
-                string apiResponse = await response.Content.ReadAsStringAsync();
+                var apiResponse = await response.Content.ReadAsStringAsync();
                 users = JsonConvert.DeserializeObject<List<User>>(apiResponse);
             }
         }
-        var temp = users;
+
+        foreach (var user in users)
+        {
+            if (user.Name == _model.Name && user.Password == _model.Password)
+            {
+                _model = user;
+            }
+        }
+
+        RoleCallback.InvokeAsync(_model.RoleId.ToString());
     }
 }

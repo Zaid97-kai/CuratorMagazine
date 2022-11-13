@@ -1,6 +1,7 @@
 ﻿@page "/"
 @namespace CuratorMagazineBlazorApp.Pages
 @using CuratorMagazineBlazorApp.Shared
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = null;
@@ -18,18 +19,11 @@
     <base href="~/" />
 </head>
 <body>
-    <div class="container">
-        <component type="typeof(MainHeader)" render-mode="ServerPrerendered" />
-        <component type="typeof(ModalWindowEnter)" render-mode="ServerPrerendered" />
-        <component type="typeof(NavBar)" render-mode="ServerPrerendered" />
-        <component type="typeof(RoleNavBar)" render-mode="ServerPrerendered" />
-        <component type="typeof(Carousel)" render-mode="ServerPrerendered" />
-        <component type="typeof(MainBody)" render-mode="ServerPrerendered" />
-    </div>
-    <component type="typeof(Footer)" render-mode="ServerPrerendered" />
 
-    <script src="_framework/blazor.server.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<component type="typeof(HeaderComponent)" render-mode="ServerPrerendered"/>
+<component type="typeof(Footer)" render-mode="ServerPrerendered"/>
+
+<script src="_framework/blazor.server.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
-

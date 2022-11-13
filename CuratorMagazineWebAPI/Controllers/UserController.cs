@@ -1,6 +1,5 @@
 ﻿using CuratorMagazineWebAPI.Models.Context;
 using CuratorMagazineWebAPI.Models.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
