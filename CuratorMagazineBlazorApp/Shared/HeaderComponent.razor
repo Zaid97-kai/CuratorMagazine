@@ -1,6 +1,7 @@
-﻿<header  class="container">
-    <MainHeader Role="@Role"></MainHeader>
-    <ModalWindowEnter RoleCallback="@SetRole"></ModalWindowEnter>
+﻿@using CuratorMagazineWebAPI.Models.Entities
+<header  class="container">
+    <MainHeader CurrentUser="@CurrentUser"></MainHeader>
+    <ModalWindowEnter RoleCallback="@SetUser"></ModalWindowEnter>
     <NavBar></NavBar>
     <RoleNavBar></RoleNavBar>
     <CarouselComponent></CarouselComponent>
@@ -9,11 +10,15 @@
 
 @code {
     [Parameter]
-    public string? Role { get; set; }
+    public User CurrentUser { get; set; }
+    [Parameter]
+    
+    public EventCallback<User> RoleCallback { get; set; }
 
-    public void SetRole(string role)
+    public void SetUser(User user)
     {
-        Role = role;
+        CurrentUser = user;
+        RoleCallback.InvokeAsync(user);
     }
 }
  

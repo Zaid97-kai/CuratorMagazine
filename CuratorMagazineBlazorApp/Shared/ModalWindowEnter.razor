@@ -36,7 +36,7 @@
     private User _model = new User();
 
     [Parameter]
-    public EventCallback<string> RoleCallback { get; set; }
+    public EventCallback<User> RoleCallback { get; set; }
 
     private void OnFinish(EditContext editContext)
     {
@@ -68,6 +68,6 @@
             }
         }
 
-        RoleCallback.InvokeAsync(_model.RoleId.ToString());
+        RoleCallback.InvokeAsync(_model);
     }
 }
