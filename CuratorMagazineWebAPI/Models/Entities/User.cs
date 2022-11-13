@@ -1,4 +1,6 @@
-﻿namespace CuratorMagazineWebAPI.Models.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CuratorMagazineWebAPI.Models.Entities
 {
     /// <summary>
     /// Пользователь системы
@@ -6,7 +8,10 @@
     public class User
     {
         public int Id { get; set; }
+        [Display(Name = "Имя")]
         public string Name { get; set; }
+        [Display(Name = "Пароль")]
+        public string Password { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
         public byte[]? ProfilePhoto { get; set; }
