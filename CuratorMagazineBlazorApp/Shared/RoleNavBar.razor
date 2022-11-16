@@ -1,5 +1,5 @@
-﻿
-@if (Role == "Начальник УВР")
+﻿@using CuratorMagazineWebAPI.Models.Entities
+@if (CurrentUser?.RoleId == 1)
 {
     <div class="collapse" id="navbarToggleExternalContent">
         <ul class="nav nav-pills nav-fill bg-secondary bg-opacity-50">
@@ -12,7 +12,7 @@
         </ul>
     </div>
 }
-else if (Role == "Замачальника УВР")
+else if (CurrentUser?.RoleId == 2)
 {
     <div class="collapse" id="navbarToggleExternalContent">
         <ul class="nav nav-pills nav-fill bg-secondary bg-opacity-50">
@@ -28,7 +28,7 @@ else if (Role == "Замачальника УВР")
         </ul>
     </div>
 }
-else if (Role == "Куратор-наставник")
+else if (CurrentUser?.RoleId == 3)
 {
     <div class="collapse" id="navbarToggleExternalContent">
         <ul class="nav nav-pills nav-fill bg-secondary bg-opacity-50">
@@ -56,5 +56,5 @@ else
 }
 @code {
     [Parameter]
-    public string Role { get; set; }
+    public User? CurrentUser { get; set; }
 }
