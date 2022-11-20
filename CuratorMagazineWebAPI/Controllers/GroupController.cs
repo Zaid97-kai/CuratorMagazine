@@ -6,12 +6,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CuratorMagazineWebAPI.Controllers
 {
+    /// <summary>
+    /// Class GroupController.
+    /// Implements the <see cref="Controller" />
+    /// </summary>
+    /// <seealso cref="Controller" />
     [ApiController]
     [Route("api/[controller]")]
     public class GroupController : Controller
     {
+        /// <summary>
+        /// The database
+        /// </summary>
         private readonly CuratorMagazineContext _db;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GroupController"/> class.
+        /// </summary>
+        /// <param name="context">The context.</param>
         public GroupController(CuratorMagazineContext context)
         {
             _db = context;
@@ -19,6 +31,10 @@ namespace CuratorMagazineWebAPI.Controllers
         }
 
         // GET: api/group
+        /// <summary>
+        /// Gets this instance.
+        /// </summary>
+        /// <returns>ActionResult&lt;IEnumerable&lt;Group&gt;&gt;.</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Group>>> Get()
         {
@@ -26,6 +42,11 @@ namespace CuratorMagazineWebAPI.Controllers
         }
 
         // GET: api/group/5
+        /// <summary>
+        /// Gets the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>ActionResult&lt;Group&gt;.</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Group>> Get(int id)
         {
@@ -35,6 +56,11 @@ namespace CuratorMagazineWebAPI.Controllers
             return new ObjectResult(group);
         }
         // POST api/group
+        /// <summary>
+        /// Posts the specified group.
+        /// </summary>
+        /// <param name="group">The group.</param>
+        /// <returns>ActionResult&lt;Group&gt;.</returns>
         [HttpPost]
         public async Task<ActionResult<Group>> Post(Group group)
         {
@@ -49,6 +75,11 @@ namespace CuratorMagazineWebAPI.Controllers
         }
 
         // PUT api/group/
+        /// <summary>
+        /// Puts the specified group.
+        /// </summary>
+        /// <param name="group">The group.</param>
+        /// <returns>ActionResult&lt;Group&gt;.</returns>
         [HttpPut]
         public async Task<ActionResult<Group>> Put(Group group)
         {
@@ -68,6 +99,11 @@ namespace CuratorMagazineWebAPI.Controllers
         }
 
         // DELETE api/group/5
+        /// <summary>
+        /// Deletes the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>ActionResult&lt;User&gt;.</returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult<User>> Delete(int id)
         {

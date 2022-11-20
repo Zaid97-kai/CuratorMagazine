@@ -12,12 +12,15 @@ namespace CuratorMagazineWebAPI.Controllers
     [Route("api/[controller]")]
     public class UserController : Controller
     {
+        /// <summary>
+        /// The database
+        /// </summary>
         private readonly CuratorMagazineContext _db;
 
         /// <summary>
         /// Конструктор класса UserController
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="context">The context.</param>
         public UserController(CuratorMagazineContext context)
         {
             _db = context;
@@ -25,6 +28,10 @@ namespace CuratorMagazineWebAPI.Controllers
         }
 
         // GET: api/user 
+        /// <summary>
+        /// Gets this instance.
+        /// </summary>
+        /// <returns>ActionResult&lt;IEnumerable&lt;User&gt;&gt;.</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> Get()
         {
@@ -34,6 +41,11 @@ namespace CuratorMagazineWebAPI.Controllers
 
 
         // GET: api/user/5
+        /// <summary>
+        /// Gets the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>ActionResult&lt;User&gt;.</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> Get(int id)
         {
@@ -44,6 +56,11 @@ namespace CuratorMagazineWebAPI.Controllers
         }
 
         // POST api/user
+        /// <summary>
+        /// Posts the specified user.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <returns>ActionResult&lt;User&gt;.</returns>
         [HttpPost]
         public async Task<ActionResult<User>> Post(User user)
         {
@@ -58,6 +75,11 @@ namespace CuratorMagazineWebAPI.Controllers
         }
 
         // PUT api/user/
+        /// <summary>
+        /// Puts the specified user.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <returns>ActionResult&lt;User&gt;.</returns>
         [HttpPut]
         public async Task<ActionResult<User>> Put(User user)
         {
@@ -77,6 +99,11 @@ namespace CuratorMagazineWebAPI.Controllers
         }
 
         // DELETE api/user/5
+        /// <summary>
+        /// Deletes the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>ActionResult&lt;User&gt;.</returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult<User>> Delete(int id)
         {
