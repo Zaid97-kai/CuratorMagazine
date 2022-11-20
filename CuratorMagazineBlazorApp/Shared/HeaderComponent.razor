@@ -12,8 +12,8 @@
 @code {
     [Parameter]
     public User CurrentUser { get; set; }
-    [Parameter]
 
+    [Parameter]
     public EventCallback<User> RoleCallback { get; set; }
 
     [Parameter]
@@ -24,6 +24,7 @@
         CurrentUser = user;
         RoleCallback.InvokeAsync(user);
     }
+
     public void SetUserNull()
     {
         CurrentUser = null;
