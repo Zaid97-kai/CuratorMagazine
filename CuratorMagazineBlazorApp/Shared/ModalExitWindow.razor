@@ -21,13 +21,13 @@
 
 @code {
     [Parameter]
-    public EventCallback<User> UserNullCallback { get; set; }
+    public User? CurrentUser { get; set; }
 
     [Parameter]
-    public User? CurrentUser { get; set; }
+    public EventCallback<User> UserNullCallback { get; set; }
 
     public void Exit()
     {
-        CurrentUser = null;
+        UserNullCallback.InvokeAsync();
     }
 }
