@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CuratorMagazineWebAPI.Migrations
 {
     [DbContext(typeof(CuratorMagazineContext))]
-    [Migration("20221103190725_MigrationPostgreSQL")]
-    partial class MigrationPostgreSQL
+    [Migration("20221120110515_addTables")]
+    partial class addTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -134,6 +134,10 @@ namespace CuratorMagazineWebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("text");
@@ -192,7 +196,8 @@ namespace CuratorMagazineWebAPI.Migrations
 
                     b.HasOne("CuratorMagazineWebAPI.Models.Entities.Group", "Group")
                         .WithMany("Users")
-                        .HasForeignKey("GroupId");
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("CuratorMagazineWebAPI.Models.Entities.Parent", "Mother")
                         .WithMany("MotherChildrens")
