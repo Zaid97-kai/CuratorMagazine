@@ -6,18 +6,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CuratorMagazineWebAPI.Controllers
 {
+    /// <summary>
+    /// Class DivisionController.
+    /// Implements the <see cref="Controller" />
+    /// </summary>
+    /// <seealso cref="Controller" />
     [ApiController]
     [Route("api/[controller]")]
     public class DivisionController : Controller
     {
+        /// <summary>
+        /// The database
+        /// </summary>
         private readonly CuratorMagazineContext _db;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DivisionController"/> class.
+        /// </summary>
+        /// <param name="context">The context.</param>
         public DivisionController(CuratorMagazineContext context)
         {
             _db = context;
             if (_db.Divisions.Any()) return;
         }
 
+        /// <summary>
+        /// Gets this instance.
+        /// </summary>
+        /// <returns>ActionResult&lt;IEnumerable&lt;Division&gt;&gt;.</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Division>>> Get()
         {
@@ -25,6 +41,11 @@ namespace CuratorMagazineWebAPI.Controllers
         }
 
         // GET: api/division/5
+        /// <summary>
+        /// Gets the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>ActionResult&lt;Division&gt;.</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Division>> Get(int id)
         {
@@ -35,6 +56,11 @@ namespace CuratorMagazineWebAPI.Controllers
         }
 
         // POST api/division
+        /// <summary>
+        /// Posts the specified division.
+        /// </summary>
+        /// <param name="division">The division.</param>
+        /// <returns>ActionResult&lt;Division&gt;.</returns>
         [HttpPost]
         public async Task<ActionResult<Division>> Post(Division division)
         {
@@ -49,6 +75,11 @@ namespace CuratorMagazineWebAPI.Controllers
         }
 
         // PUT api/division/
+        /// <summary>
+        /// Puts the specified division.
+        /// </summary>
+        /// <param name="division">The division.</param>
+        /// <returns>ActionResult&lt;Division&gt;.</returns>
         [HttpPut]
         public async Task<ActionResult<Division>> Put(Division division)
         {
@@ -68,6 +99,11 @@ namespace CuratorMagazineWebAPI.Controllers
         }
 
         // DELETE api/division/5
+        /// <summary>
+        /// Deletes the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>ActionResult&lt;User&gt;.</returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult<User>> Delete(int id)
         {

@@ -5,10 +5,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CuratorMagazineWebAPI.Controllers
 {
+    /// <summary>
+    /// Class RoleController.
+    /// Implements the <see cref="ControllerBase" />
+    /// </summary>
+    /// <seealso cref="ControllerBase" />
     [ApiController]
     [Route("api/[controller]")]
     public class RoleController : ControllerBase
     {
+        /// <summary>
+        /// The database
+        /// </summary>
         private readonly CuratorMagazineContext _db;
 
         /// <summary>
@@ -21,6 +29,10 @@ namespace CuratorMagazineWebAPI.Controllers
             if (_db.Roles.Any()) return;
         }
 
+        /// <summary>
+        /// Gets this instance.
+        /// </summary>
+        /// <returns>ActionResult&lt;IEnumerable&lt;Role&gt;&gt;.</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Role>>> Get()
         {
@@ -28,6 +40,11 @@ namespace CuratorMagazineWebAPI.Controllers
         }
 
         // GET api/role/5
+        /// <summary>
+        /// Gets the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>ActionResult&lt;Role&gt;.</returns>
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Role>> Get(int id)
         {
@@ -38,6 +55,11 @@ namespace CuratorMagazineWebAPI.Controllers
         }
 
         // POST api/role
+        /// <summary>
+        /// Posts the specified role.
+        /// </summary>
+        /// <param name="role">The role.</param>
+        /// <returns>ActionResult&lt;Role&gt;.</returns>
         [HttpPost]
         public async Task<ActionResult<Role>> Post(Role role)
         {
@@ -52,6 +74,11 @@ namespace CuratorMagazineWebAPI.Controllers
         }
 
         // PUT api/role/
+        /// <summary>
+        /// Puts the specified role.
+        /// </summary>
+        /// <param name="role">The role.</param>
+        /// <returns>ActionResult&lt;Role&gt;.</returns>
         [HttpPut]
         public async Task<ActionResult<Role>> Put(Role role)
         {
@@ -71,6 +98,11 @@ namespace CuratorMagazineWebAPI.Controllers
         }
 
         // DELETE api/role/5
+        /// <summary>
+        /// Deletes the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>ActionResult&lt;User&gt;.</returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult<User>> Delete(int id)
         {
