@@ -11,20 +11,19 @@
 
 @code {
     [Parameter]
-    public User? CurrentUser { get; set; }
-
+    public User CurrentUser { get; set; }
     [Parameter]
-    public EventCallback<User?> RoleCallback { get; set; }
+
+    public EventCallback<User> RoleCallback { get; set; }
 
     [Parameter]
     public EventCallback<User> UserNullCallback { get; set; }
 
-    public void SetUser(User? user)
+    public void SetUser(User user)
     {
         CurrentUser = user;
         RoleCallback.InvokeAsync(user);
     }
-
     public void SetUserNull()
     {
         CurrentUser = null;
