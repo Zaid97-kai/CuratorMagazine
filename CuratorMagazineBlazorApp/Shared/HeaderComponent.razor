@@ -2,6 +2,7 @@
 <header  class="container">
     <MainHeader CurrentUser="@CurrentUser"></MainHeader>
     <ModalWindowEnter RoleCallback="@SetUser"></ModalWindowEnter>
+    <ModalExitWindow UserNullCallback="@SetUserNull" ></ModalExitWindow>
     <NavBar></NavBar>
     <RoleNavBar CurrentUser="@CurrentUser"></RoleNavBar>
     <CarouselComponent></CarouselComponent>
@@ -12,13 +13,21 @@
     [Parameter]
     public User CurrentUser { get; set; }
     [Parameter]
-    
+
     public EventCallback<User> RoleCallback { get; set; }
+
+    [Parameter]
+    public EventCallback<User> UserNullCallback { get; set; }
 
     public void SetUser(User user)
     {
         CurrentUser = user;
         RoleCallback.InvokeAsync(user);
+    }
+    public void SetUserNull()
+    {
+        CurrentUser = null;
+        UserNullCallback.InvokeAsync();
     }
 }
  
