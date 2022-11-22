@@ -48,6 +48,12 @@ namespace CuratorMagazineWebAPI.Models.Context
             base.OnModelCreating(modelBuilder);
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder
+                .UseLazyLoadingProxies();
+        }
+
         #region Entities
 
         /// <summary>

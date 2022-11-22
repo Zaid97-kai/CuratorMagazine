@@ -1,4 +1,6 @@
-﻿namespace CuratorMagazineWebAPI.Models.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace CuratorMagazineWebAPI.Models.Entities
 {
     /// <summary>
     /// Class Role.
@@ -19,6 +21,7 @@
         /// Gets or sets the users.
         /// </summary>
         /// <value>The users.</value>
+        [JsonIgnore]
         public virtual List<User> Users { get; set; }
     }
 }
