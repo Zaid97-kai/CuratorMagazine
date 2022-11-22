@@ -1,24 +1,26 @@
-﻿namespace CuratorMagazineWebAPI.Models.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace CuratorMagazineWebAPI.Models.Entities;
+
+/// <summary>
+/// Class Division.
+/// </summary>
+public class Division
 {
     /// <summary>
-    /// Class Division.
+    /// Gets or sets the identifier.
     /// </summary>
-    public class Division
-    {
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>The identifier.</value>
-        public int Id { get; set; }
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>The name.</value>
-        public string Name { get; set; }
-        /// <summary>
-        /// Gets or sets the users.
-        /// </summary>
-        /// <value>The users.</value>
-        public virtual List<User> Users { get; set; }
-    }
+    /// <value>The identifier.</value>
+    public int Id { get; set; }
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    /// <value>The name.</value>
+    public string Name { get; set; }
+    /// <summary>
+    /// Gets or sets the users.
+    /// </summary>
+    /// <value>The users.</value>
+    [JsonIgnore]
+    public virtual List<User> Users { get; set; }
 }
