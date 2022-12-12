@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.DataProtection;
 using CuratorMagazineWebAPI.DependencyInjection;
 using CuratorMagazineWebAPI.Models.Context;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +10,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1",
+        new OpenApiInfo()
+        {
+            Title = "Swagger Demo API",
+            Description = "Demo API for showing Swagger",
+            Version = "v1"
+        });
+});
+
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddDataProtection().PersistKeysToDbContext<CuratorMagazineContext>();
 
@@ -32,7 +43,10 @@ using (var scope = app.Services.CreateScope())
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger Demo API");
+    });
 }
 
 app.UseHttpsRedirection();
