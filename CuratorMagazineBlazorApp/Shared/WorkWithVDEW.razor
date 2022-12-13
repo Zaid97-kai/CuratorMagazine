@@ -1,12 +1,9 @@
-﻿@using Microsoft.AspNetCore.Components
-@using Newtonsoft.Json
-@using JsonSerializer = System.Text.Json.JsonSerializer
-
-@*ЗАИД ПОМОГИ Пометка надо понять как вызвать данный компонент через нажатие кнопки (кнопка называется ЗАИД ПОМОГИ)*@
+﻿@*ЗАИД ПОМОГИ Пометка надо понять как вызвать данный компонент через нажатие кнопки (кнопка называется ЗАИД ПОМОГИ)*@
 <div class="container my-4 bg-secondary bg-opacity-50">
     <div class="container-fluid">
         <BodySearchBar></BodySearchBar>
         <div class="overflow-auto container scroll" @onload="@GetVDEW">
+
             @foreach (var item in _users)
             {
                 if (item.Division == CurrentUser.Division && item.Role.Name == "admin2")
@@ -31,7 +28,7 @@
     [Parameter]
     public User? CurrentUser { get; set; }
 
-    private List<User>? _users;
+    private List<User>? _users = new();
 
     void DeleteVDEW(User user)
     {
@@ -42,9 +39,7 @@
     {
 
     }
-
     
-
     public async void GetVDEW()
     {
         _users = new List<User>();

@@ -26,6 +26,6 @@ app.UseRouting();
 app.UseCors(builder => builder.AllowAnyOrigin());
 
 app.MapBlazorHub();
-app.MapFallbackToPage("/_Host");
+app.MapFallbackToPage("/Index");
 
 app.Run();
