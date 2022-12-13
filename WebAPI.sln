@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CuratorMagazineWebAPI", "Cu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CuratorMagazineBlazorApp", "CuratorMagazineBlazorApp\CuratorMagazineBlazorApp.csproj", "{187367AD-9EAB-422D-9B07-A508F45E0CB9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomatedUITests", "AutomatedUITests\AutomatedUITests.csproj", "{D906F966-335D-40C8-B3FE-ECC2341F119B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomatedUITests", "AutomatedUITests\AutomatedUITests.csproj", "{D906F966-335D-40C8-B3FE-ECC2341F119B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
