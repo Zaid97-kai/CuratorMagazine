@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Components
+@using Newtonsoft.Json
+@using JsonSerializer = System.Text.Json.JsonSerializer
+
+<div class="container my-4 bg-secondary bg-opacity-50" @onload="GetGroups">
+    <div class="container-fluid">
+        <div class="overflow-auto container scroll">
+            @foreach (var item in _groups)
+            {
+                <IndividualGroup group="item"></IndividualGroup>
+            }
+        </div>
+    </div>
+</div>
+            
+                
+
+@code {
+    [Parameter]
+    public User? CurrentUser { get; set; }
+
+    private List<Group>? _groups;
+
+    public async void GetGroups()
+    {
+        _groups = new List<Group>();
+        using (var httpClient = new HttpClient())
+        {
+            using (var response = await httpClient.GetAsync("https://localhost:7217/api/Group"))
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                _groups = JsonConvert.DeserializeObject<List<Group>>(apiResponse);
+            }
+        }
+    }
+}

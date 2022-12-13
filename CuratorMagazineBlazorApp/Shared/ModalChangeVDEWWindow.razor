@@ -1,0 +1,114 @@
+﻿@using CuratorMagazineWebAPI.Models.Entities
+@using Microsoft.AspNetCore.Components
+@using Newtonsoft.Json
+@using JsonSerializer = System.Text.Json.JsonSerializer
+
+
+@*Пометка сделать как будет возможность тестировать этот блок*@
+<div class="modal fade" aria-labelledby="addModelLabel" style="display: none;" aria-hidden="true" tabindex="-1" id="addModal">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title">Добавление</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    @*<Form Model="@_model"
+                          OnFinish="OnFinish"
+                          OnFinishFailed="OnFinishFailed"
+                          LabelColSpan="8"
+                          WrapperColSpan="16">
+                        <FormItem>
+                            <Input @bind-Value="@context.Name" />
+                        </FormItem>
+                        <FormItem>
+                            <InputPassword @bind-Value="@context.Password" />
+                        </FormItem>
+                        <FormItem WrapperColOffset="8" WrapperColSpan="16">
+                            <Button Type="@ButtonType.Primary" HtmlType="submit" OnClick="Authorization">
+                                ВОЙТИ
+                            </Button>
+                        </FormItem>
+                    </Form>*@
+                    <div class="row">
+                        <div class="col-md-6 text-center">
+                            <img class="img-fluid" src="../img/no-img.jpg" alt="">
+                            <button type="image" class="btn btn-outline-secondary mt-3">Обзор</button>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputSurame" class="col-md-2 col-form-label">Фамилия</label>
+                            <div class="col-ms-10">
+                                <input type="text" class="form-control" id="inputSurame">
+                            </div>
+                            <label for="inputName" class="col-md-2 col-form-label">Имя</label>
+                            <div class="col-ms-10">
+                                <input type="text" class="form-control" id="inputName">
+                            </div>
+                            <label for="inputSecondname" class="col-md-2 col-form-label">Отчество</label>
+                            <div class="col-ms-10">
+                                <input type="text" class="form-control" id="inputSecondname">
+                            </div>
+                            <label for="selectDivision" class="col-md-2 col-form-label">Подразделение</label>
+                            <div class="col-ms-10">
+                                <select class="form-select border-1" id="selectDivision">
+                                    <option selected>Фильтр</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputTel" class="col-md-2 col-form-label">Телефон</label>
+                            <div class="col-ms-10">
+                                <input type="tel" class="form-control" id="inputTel">
+                            </div>
+                             <label for="inputLogin" class="col-md-2 col-form-label">Логин</label>
+                            <div class="col-ms-10">
+                                <input type="text" class="form-control" id="inputLogin">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputEmail" class="col-md-2 col-form-label">Email</label>
+                            <div class="col-ms-10">
+                                <input type="email" class="form-control" id="inputEmail">
+                            </div>
+                            <label for="inputPassword" class="col-md-2 col-form-label">Пароль</label>
+                            <div class="col-ms-10">
+                                <input type="text" class="form-control" id="inputPassword">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary" @onclick="(() => ChangeVDEW.InvokeAsync(_vdew))">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private User _vdew = new User();
+
+    [Parameter]
+    public User? CurrentUser { get; set; }
+
+    [Parameter]
+    public EventCallback<User> RoleCallback { get; set; }
+
+    private void OnFinish(EditContext editContext)
+    {
+        Console.WriteLine($"Success:{JsonSerializer.Serialize(_vdew)}");
+    }
+
+    private void OnFinishFailed(EditContext editContext)
+    {
+        Console.WriteLine($"Failed:{JsonSerializer.Serialize(_vdew)}");
+    }
+
+    [Parameter]
+    public EventCallback<User> ChangeVDEW { get; set; }
+}
