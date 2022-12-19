@@ -1,6 +1,8 @@
-﻿using System.Net.Http.Headers;
+﻿using System.Net;
+using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Text;
+using CuratorMagazineBlazorApp.Data.Common;
 
 namespace CuratorMagazineBlazorApp.Models.Bases;
 
@@ -15,7 +17,7 @@ public abstract class BaseHttpService
     private readonly HttpClient _client;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="BaseHttpService"/> class.
+    /// Initializes a new instance of the <see cref="BaseHttpService" /> class.
     /// </summary>
     /// <param name="httpClient">The HTTP client.</param>
     protected BaseHttpService(HttpClient httpClient)
@@ -63,5 +65,42 @@ public abstract class BaseHttpService
 
         message.Content = CreateContent(model);
         return message;
+    }
+
+    /// <summary>
+    /// Send as an asynchronous operation.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="action">The action.</param>
+    /// <param name="method">The method.</param>
+    /// <param name="model">The model.</param>
+    /// <returns>A Task&lt;OperationResult`1&gt; representing the asynchronous operation.</returns>
+    protected async Task<OperationResult<T>> SendAsync<T>(string action, HttpMethod method, object model = null)
+        where T : class, new()
+    {
+        try
+        {
+            var uri = $"{BasePath}/{action}";
+            var message = CreateMessage(uri, method, model);
+            var response = await _client.SendAsync(message);
+            if (response.StatusCode == HttpStatusCode.NoContent)
+                return new OperationResult<T>();
+
+            var content = await response.Content.ReadAsStringAsync();
+            Console.WriteLine($"{uri}, content: {content}");
+            var res = JsonConvert.DeserializeObject<OperationResult<T>>(content);
+            if (res == null)
+            {
+                var operation = OperationResult.CreateResult<T>();
+                return operation;
+            }
+
+            return res;
+        }
+        catch (Exception exc)
+        {
+            var operation = OperationResult.CreateResult<T>();
+            return operation;
+        }
     }
 }

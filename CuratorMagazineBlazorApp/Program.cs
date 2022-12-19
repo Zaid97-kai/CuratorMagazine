@@ -1,3 +1,5 @@
+using CuratorMagazineBlazorApp.Data.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +7,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddAntDesign();
 builder.Services.AddCors();
+
+builder.Services.AddSingleton<UserService>();
 
 var app = builder.Build();
 
