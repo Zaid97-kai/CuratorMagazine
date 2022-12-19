@@ -1,4 +1,5 @@
 using CuratorMagazineBlazorApp.Data.Services;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,12 @@ builder.Services.AddAntDesign();
 builder.Services.AddCors();
 
 builder.Services.AddSingleton<UserService>();
+
+builder.Services.AddHttpClient("CuratorMagazineWebAPI", client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["APP_API"]);
+    client.Timeout = TimeSpan.FromMinutes(15);
+});
 
 var app = builder.Build();
 

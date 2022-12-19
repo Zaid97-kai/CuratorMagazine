@@ -98,8 +98,7 @@
     [Parameter]
     public EventCallback<User> RoleCallback { get; set; }
 
-    [Inject]
-    public UserService UserService { get; set; } = null!;
+    public UserService UserService { get; set; }
 
     private void OnFinish(EditContext editContext)
     {

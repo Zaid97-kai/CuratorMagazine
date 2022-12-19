@@ -76,5 +76,5 @@ public class UserService : BaseService
     /// Gets the base path.
     /// </summary>
     /// <value>The base path.</value>
-    protected override string BasePath { get; }
+    protected override string BasePath => "User";
 }
