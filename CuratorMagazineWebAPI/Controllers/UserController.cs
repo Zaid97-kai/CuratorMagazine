@@ -1,46 +1,42 @@
-﻿using CuratorMagazineWebAPI.Models.Context;
-using CuratorMagazineWebAPI.Models.Entities;
+﻿using CuratorMagazineWebAPI.Models.Entities;
+using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace CuratorMagazineWebAPI.Controllers;
 
 /// <summary>
-/// Контроллер UserController
+/// Class UserController.
+/// Implements the <see cref="Controller" />
 /// </summary>
+/// <seealso cref="Controller" />
 [ApiController]
 [Route("api/[controller]")]
 public class UserController : Controller
 {
     /// <summary>
-    /// The database
+    /// The unit of work
     /// </summary>
-    private readonly CuratorMagazineContext _db;
+    private readonly IUnitOfWork _unitOfWork;
 
     /// <summary>
-    /// Конструктор класса UserController
+    /// Initializes a new instance of the <see cref="UserController"/> class.
     /// </summary>
-    /// <param name="context">The context.</param>
-    public UserController(CuratorMagazineContext context)
+    /// <param name="unitOfWork">The unit of work.</param>
+    public UserController(IUnitOfWork unitOfWork)
     {
-        _db = context;
-        if (_db.Users.Any()) return;
+        _unitOfWork = unitOfWork;
     }
 
-    // GET: api/user 
     /// <summary>
     /// Gets this instance.
     /// </summary>
-    /// <returns>ActionResult&lt;IEnumerable&lt;User&gt;&gt;.</returns>
+    /// <returns>IEnumerable&lt;User&gt;.</returns>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<User>>> Get()
+    public async Task<IEnumerable<User>> Get()
     {
-        var list = await _db.Users.ToListAsync();
-        return await _db.Users.ToListAsync();
+        return await _unitOfWork.UserRepository.GetAll();
     }
 
-
-    // GET: api/user/5
     /// <summary>
     /// Gets the specified identifier.
     /// </summary>
@@ -49,56 +45,48 @@ public class UserController : Controller
     [HttpGet("{id}")]
     public async Task<ActionResult<User>> Get(int id)
     {
-        var user = await _db.Users.FirstOrDefaultAsync(x => x.Id == id);
-        if (user == null)
+        var User = await _unitOfWork.UserRepository.GetById(id);
+        if (User == null)
             return NotFound();
-        return new ObjectResult(user);
+        return new ObjectResult(User);
     }
 
-    // POST api/user
     /// <summary>
     /// Posts the specified user.
     /// </summary>
-    /// <param name="user">The user.</param>
+    /// <param name="User">The user.</param>
     /// <returns>ActionResult&lt;User&gt;.</returns>
     [HttpPost]
-    public async Task<ActionResult<User>> Post(User user)
+    public async Task<ActionResult<User>> Post(User? User)
     {
-        if (user == null)
+        if (User == null)
         {
             return BadRequest();
         }
 
-        _db.Users.Add(user);
-        await _db.SaveChangesAsync();
-        return Ok(user);
+        _unitOfWork.UserRepository.Add(User);
+        _unitOfWork.Complete();
+        return Ok(User);
     }
 
-    // PUT api/user/
     /// <summary>
     /// Puts the specified user.
     /// </summary>
-    /// <param name="user">The user.</param>
+    /// <param name="User">The user.</param>
     /// <returns>ActionResult&lt;User&gt;.</returns>
     [HttpPut]
-    public async Task<ActionResult<User>> Put(User user)
+    public async Task<ActionResult<User>> Put(User? User)
     {
-        if (user == null)
+        if (User == null)
         {
             return BadRequest();
         }
 
-        if (!_db.Users.Any(x => x.Id == user.Id))
-        {
-            return NotFound();
-        }
-
-        _db.Update(user);
-        await _db.SaveChangesAsync();
-        return Ok(user);
+        _unitOfWork.UserRepository.Update(User);
+        _unitOfWork.Complete();
+        return Ok(User);
     }
 
-    // DELETE api/user/5
     /// <summary>
     /// Deletes the specified identifier.
     /// </summary>
@@ -107,14 +95,11 @@ public class UserController : Controller
     [HttpDelete("{id}")]
     public async Task<ActionResult<User>> Delete(int id)
     {
-        var user = _db.Users.FirstOrDefault(x => x.Id == id);
-        if (user == null)
-        {
-            return NotFound();
-        }
+        var User = _unitOfWork.UserRepository.Find(x => x.Id == id).Result.FirstOrDefault();
 
-        _db.Users.Remove(user);
-        await _db.SaveChangesAsync();
-        return Ok(user);
+        if (User == null) return NotFound();
+        _unitOfWork.UserRepository.Remove(User);
+        _unitOfWork.Complete();
+        return Ok(User);
     }
 }

@@ -1,8 +1,6 @@
-﻿using CuratorMagazineWebAPI.Models.Context;
-using CuratorMagazineWebAPI.Models.Entities;
-using Microsoft.AspNetCore.Http;
+﻿using CuratorMagazineWebAPI.Models.Entities;
+using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace CuratorMagazineWebAPI.Controllers
 {
@@ -16,32 +14,29 @@ namespace CuratorMagazineWebAPI.Controllers
     public class GroupController : Controller
     {
         /// <summary>
-        /// The database
+        /// The unit of work
         /// </summary>
-        private readonly CuratorMagazineContext _db;
+        private readonly IUnitOfWork _unitOfWork;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GroupController"/> class.
         /// </summary>
-        /// <param name="context">The context.</param>
-        public GroupController(CuratorMagazineContext context)
+        /// <param name="unitOfWork">The unit of work.</param>
+        public GroupController(IUnitOfWork unitOfWork)
         {
-            _db = context;
-            if (_db.Groups.Any()) return;
+            _unitOfWork = unitOfWork;
         }
 
-        // GET: api/group
         /// <summary>
         /// Gets this instance.
         /// </summary>
-        /// <returns>ActionResult&lt;IEnumerable&lt;Group&gt;&gt;.</returns>
+        /// <returns>IEnumerable&lt;Group&gt;.</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Group>>> Get()
+        public async Task<IEnumerable<Group>> Get()
         {
-            return await _db.Groups.ToListAsync();
+            return await _unitOfWork.GroupRepository.GetAll();
         }
 
-        // GET: api/group/5
         /// <summary>
         /// Gets the specified identifier.
         /// </summary>
@@ -50,72 +45,62 @@ namespace CuratorMagazineWebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Group>> Get(int id)
         {
-            var group = await _db.Groups.FirstOrDefaultAsync(x => x.Id == id);
-            if (group == null)
+            var Group = await _unitOfWork.GroupRepository.GetById(id);
+            if (Group == null)
                 return NotFound();
-            return new ObjectResult(group);
+            return new ObjectResult(Group);
         }
-        // POST api/group
+
         /// <summary>
         /// Posts the specified group.
         /// </summary>
-        /// <param name="group">The group.</param>
+        /// <param name="Group">The group.</param>
         /// <returns>ActionResult&lt;Group&gt;.</returns>
         [HttpPost]
-        public async Task<ActionResult<Group>> Post(Group group)
+        public async Task<ActionResult<Group>> Post(Group? Group)
         {
-            if (group == null)
+            if (Group == null)
             {
                 return BadRequest();
             }
 
-            _db.Groups.Add(group);
-            await _db.SaveChangesAsync();
-            return Ok(group);
+            _unitOfWork.GroupRepository.Add(Group);
+            _unitOfWork.Complete();
+            return Ok(Group);
         }
 
-        // PUT api/group/
         /// <summary>
         /// Puts the specified group.
         /// </summary>
-        /// <param name="group">The group.</param>
+        /// <param name="Group">The group.</param>
         /// <returns>ActionResult&lt;Group&gt;.</returns>
         [HttpPut]
-        public async Task<ActionResult<Group>> Put(Group group)
+        public async Task<ActionResult<Group>> Put(Group? Group)
         {
-            if (group == null)
+            if (Group == null)
             {
                 return BadRequest();
             }
 
-            if (!_db.Users.Any(x => x.Id == group.Id))
-            {
-                return NotFound();
-            }
-
-            _db.Update(group);
-            await _db.SaveChangesAsync();
-            return Ok(group);
+            _unitOfWork.GroupRepository.Update(Group);
+            _unitOfWork.Complete();
+            return Ok(Group);
         }
 
-        // DELETE api/group/5
         /// <summary>
         /// Deletes the specified identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns>ActionResult&lt;User&gt;.</returns>
+        /// <returns>ActionResult&lt;Group&gt;.</returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> Delete(int id)
+        public async Task<ActionResult<Group>> Delete(int id)
         {
-            var group = _db.Groups.FirstOrDefault(x => x.Id == id);
-            if (group == null)
-            {
-                return NotFound();
-            }
+            var Group = _unitOfWork.GroupRepository.Find(x => x.Id == id).Result.FirstOrDefault();
 
-            _db.Groups.Remove(group);
-            await _db.SaveChangesAsync();
-            return Ok(group);
+            if (Group == null) return NotFound();
+            _unitOfWork.GroupRepository.Remove(Group);
+            _unitOfWork.Complete();
+            return Ok(Group);
         }
     }
 }
