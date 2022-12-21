@@ -5,12 +5,12 @@ namespace CuratorMagazineWebAPI.Models.Entities.Repositories.Entities;
 
 /// <summary>
 /// Class DivisionRepository.
-/// Implements the <see cref="CuratorMagazineWebAPI.Models.Entities.Repositories.Entities.GenericRepository{CuratorMagazineWebAPI.Models.Entities.Division}" />
+/// Implements the <see cref="BaseRepository{T}.Models.Entities.Division}" />
 /// Implements the <see cref="IDivisionRepository" />
 /// </summary>
-/// <seealso cref="CuratorMagazineWebAPI.Models.Entities.Repositories.Entities.GenericRepository{CuratorMagazineWebAPI.Models.Entities.Division}" />
+/// <seealso cref="BaseRepository{T}.Models.Entities.Division}" />
 /// <seealso cref="IDivisionRepository" />
-public class DivisionRepository : GenericRepository<Division>, IDivisionRepository
+public class DivisionRepository : BaseRepository<Division>, IDivisionRepository
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DivisionRepository"/> class.

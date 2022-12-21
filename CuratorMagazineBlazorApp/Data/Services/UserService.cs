@@ -1,6 +1,8 @@
 ﻿using CuratorMagazineBlazorApp.Data.Common;
 using CuratorMagazineBlazorApp.Models.Bases;
 using CuratorMagazineWebAPI.Models.Entities;
+using Shared.Bases.Dtos.BaseHelpers;
+using Shared.Bases;
 
 namespace CuratorMagazineBlazorApp.Data.Services;
 
@@ -25,8 +27,9 @@ public class UserService : BaseService
     /// <returns>A Task&lt;OperationResult`1&gt; representing the asynchronous operation.</returns>
     public async Task<OperationResult<List<User>>> GetCardsAsync()
     {
-        var dto = await SendAsync<List<User>>("", HttpMethod.Get);
-        return dto;
+        //var dto = await SendAsync<List<User>>("", HttpMethod.Get);
+        //return dto;
+        return null;
     }
 
     /// <summary>
@@ -36,8 +39,9 @@ public class UserService : BaseService
     /// <returns>A Task&lt;OperationResult`1&gt; representing the asynchronous operation.</returns>
     public async Task<OperationResult<User>> GetCardAsync(int id)
     {
-        var dto = await SendAsync<User>($"{id}", HttpMethod.Get);
-        return dto;
+        //var dto = await SendAsync<User>($"{id}", HttpMethod.Get);
+        //return dto;
+        return null;
     }
 
     /// <summary>
@@ -46,8 +50,9 @@ public class UserService : BaseService
     /// <returns>A Task&lt;OperationResult`1&gt; representing the asynchronous operation.</returns>
     public async Task<OperationResult<User>> CreateCardAsync()
     {
-        var dto = await SendAsync<User>("Create", HttpMethod.Post);
-        return dto;
+        //var dto = await SendAsync<User>("Create", HttpMethod.Post);
+        //return dto;
+        return null;
     }
 
     /// <summary>
@@ -57,8 +62,9 @@ public class UserService : BaseService
     /// <returns>A Task&lt;OperationResult`1&gt; representing the asynchronous operation.</returns>
     public async Task<OperationResult<User>> PutCardAsync(User model)
     {
-        var dto = await SendAsync<User>("", HttpMethod.Put, model);
-        return dto;
+        //var dto = await SendAsync<User>("", HttpMethod.Put, model);
+        //return dto;
+        return null;
     }
 
     /// <summary>
@@ -68,8 +74,21 @@ public class UserService : BaseService
     /// <returns>A Task&lt;OperationResult`1&gt; representing the asynchronous operation.</returns>
     public async Task<OperationResult<User>> DeleteCardAsync(int id)
     {
-        var dto = await SendAsync<User>($"{id}", HttpMethod.Delete);
-        return dto;
+        //var dto = await SendAsync<User>($"{id}", HttpMethod.Delete);
+        //return dto;
+        return null;
+    }
+
+    /// <summary>
+    /// Post as an asynchronous operation.
+    /// </summary>
+    /// <param name="query">The query.</param>
+    /// <returns>A Task&lt;BaseResponse`1&gt; representing the asynchronous operation.</returns>
+    public override async Task<BaseResponse<BaseDtoListResult>> PostAsync(string query = "")
+    {
+        var parameters = new Dictionary<string, string> { { "query", query }, { "page", "1" } };
+        var ret = await SendAsync<BaseDtoListResult>("GetList", HttpMethod.Post, parameters);
+        return ret;
     }
 
     /// <summary>

@@ -2,7 +2,7 @@
 
 /// <summary>Interface IGroupRepository
 /// Extends the <see cref="T:CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces.IGenericRepository`1" /></summary>
-public interface IGroupRepository : IGenericRepository<Group>
+public interface IGroupRepository : IBaseRepository<Group>
 {
     
 }

@@ -1,4 +1,6 @@
-﻿namespace CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
+﻿using CuratorMagazineWebAPI.Models.Entities.Repositories.Entities;
+
+namespace CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 
 /// <summary>
 /// Interface IUnitOfWork
@@ -29,7 +31,7 @@ public interface IUnitOfWork
     /// Gets the user repository.
     /// </summary>
     /// <value>The user repository.</value>
-    IUserRepository UserRepository { get; }
+    UserRepository UserRepository { get; }
     /// <summary>
     /// Completes this instance.
     /// </summary>

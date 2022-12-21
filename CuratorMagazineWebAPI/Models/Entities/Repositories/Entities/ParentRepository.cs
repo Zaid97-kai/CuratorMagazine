@@ -5,12 +5,12 @@ namespace CuratorMagazineWebAPI.Models.Entities.Repositories.Entities;
 
 /// <summary>
 /// Class ParentRepository.
-/// Implements the <see cref="CuratorMagazineWebAPI.Models.Entities.Repositories.Entities.GenericRepository{CuratorMagazineWebAPI.Models.Entities.Parent}" />
+/// Implements the <see cref="BaseRepository{T}.Models.Entities.Parent}" />
 /// Implements the <see cref="IParentRepository" />
 /// </summary>
-/// <seealso cref="CuratorMagazineWebAPI.Models.Entities.Repositories.Entities.GenericRepository{CuratorMagazineWebAPI.Models.Entities.Parent}" />
+/// <seealso cref="BaseRepository{T}.Models.Entities.Parent}" />
 /// <seealso cref="IParentRepository" />
-public class ParentRepository : GenericRepository<Parent>, IParentRepository
+public class ParentRepository : BaseRepository<Parent>, IParentRepository
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="ParentRepository" /> class.

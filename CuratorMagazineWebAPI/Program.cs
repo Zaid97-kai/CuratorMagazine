@@ -25,7 +25,7 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddPersistence(builder.Configuration);
 
 #region Repositories
-builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddTransient<IDivisionRepository, DivisionRepository>();
 builder.Services.AddTransient<IGroupRepository, GroupRepository>();
 builder.Services.AddTransient<IParentRepository, ParentRepository>();

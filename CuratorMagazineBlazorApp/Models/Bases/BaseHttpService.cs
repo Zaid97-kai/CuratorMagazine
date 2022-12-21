@@ -3,6 +3,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Text;
 using CuratorMagazineBlazorApp.Data.Common;
+using Shared.Bases;
 
 namespace CuratorMagazineBlazorApp.Models.Bases;
 
@@ -75,7 +76,7 @@ public abstract class BaseHttpService
     /// <param name="method">The method.</param>
     /// <param name="model">The model.</param>
     /// <returns>A Task&lt;OperationResult`1&gt; representing the asynchronous operation.</returns>
-    protected async Task<OperationResult<T>> SendAsync<T>(string action, HttpMethod method, object model = null)
+    protected async Task<BaseResponse<T>> SendAsync<T>(string action, HttpMethod method, object model = null)
         where T : class, new()
     {
         try
@@ -84,23 +85,27 @@ public abstract class BaseHttpService
             var message = CreateMessage(uri, method, model);
             var response = await _client.SendAsync(message);
             if (response.StatusCode == HttpStatusCode.NoContent)
-                return new OperationResult<T>();
+                return new BaseResponse<T>();
 
             var content = await response.Content.ReadAsStringAsync();
-            Console.WriteLine($"{uri}, content: {content}");
-            var res = JsonConvert.DeserializeObject<OperationResult<T>>(content);
+            var res = JsonConvert.DeserializeObject<BaseResponse<T>>(content);
             if (res == null)
-            {
-                var operation = OperationResult.CreateResult<T>();
-                return operation;
-            }
-
+                return new BaseResponse<T>(new T()) { Error = $"Cant convert response from URI = '{uri}', content returned = '{content}' to type = {typeof(T)} " };
             return res;
         }
         catch (Exception exc)
         {
-            var operation = OperationResult.CreateResult<T>();
-            return operation;
+            return new BaseResponse<T>() { Error = _baseErr(exc) };
         }
+    }
+
+    /// <summary>
+    /// Bases the error.
+    /// </summary>
+    /// <param name="exc">The exc.</param>
+    /// <returns>System.String.</returns>
+    private string _baseErr(Exception exc)
+    {
+        return $"Message: {exc.Message}, Inner exception: {exc.InnerException?.Message}";
     }
 }

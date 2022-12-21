@@ -1,4 +1,6 @@
-﻿using System.Linq.Expressions;
+﻿using Shared.Bases.Dtos.BaseHelpers;
+using System.Linq.Expressions;
+using CuratorMagazineWebAPI.Models.Bases.Filters;
 
 namespace CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 
@@ -6,7 +8,7 @@ namespace CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 /// Interface IGenericRepository
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public interface IGenericRepository<T> where T : class
+public interface IBaseRepository<T> where T : class
 {
     /// <summary>
     /// Gets the by identifier.
@@ -19,6 +21,12 @@ public interface IGenericRepository<T> where T : class
     /// </summary>
     /// <returns>IEnumerable&lt;T&gt;.</returns>
     Task<IEnumerable<T>> GetAll();
+    /// <summary>
+    /// Gets the list.
+    /// </summary>
+    /// <param name="filter">The filter.</param>
+    /// <returns>Task&lt;BaseDtoListResult&gt;.</returns>
+    Task<BaseDtoListResult> GetList(BaseFilterGetList filter);
     /// <summary>
     /// Finds the specified expression.
     /// </summary>

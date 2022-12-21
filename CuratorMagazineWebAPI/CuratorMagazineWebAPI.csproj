@@ -34,6 +34,11 @@
     <PackageReference Include="Npgsql.NetTopologySuite" Version="6.0.7" />
     <PackageReference Include="Npgsql.NodaTime" Version="6.0.7" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="X.PagedList" Version="8.4.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

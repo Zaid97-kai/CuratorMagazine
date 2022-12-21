@@ -1,6 +1,10 @@
-﻿using CuratorMagazineWebAPI.Models.Entities;
+﻿using CuratorMagazineWebAPI.Models.Bases.ActionResults;
+using CuratorMagazineWebAPI.Models.Bases.Filters;
+using CuratorMagazineWebAPI.Models.Entities;
+using CuratorMagazineWebAPI.Models.Entities.Repositories.Entities;
 using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Bases.Dtos.BaseHelpers;
 
 namespace CuratorMagazineWebAPI.Controllers;
 
@@ -49,6 +53,13 @@ public class UserController : Controller
         if (User == null)
             return NotFound();
         return new ObjectResult(User);
+    }
+
+    [HttpPost("GetList")]
+    public async Task<BaseResponseActionResult<BaseDtoListResult>> GetList([FromBody] BaseFilterGetList data)
+    {
+        var ret = await _unitOfWork.UserRepository.GetList(data);
+        return ret;
     }
 
     /// <summary>

@@ -5,12 +5,12 @@ namespace CuratorMagazineWebAPI.Models.Entities.Repositories.Entities;
 
 /// <summary>
 /// Class GroupRepository.
-/// Implements the <see cref="CuratorMagazineWebAPI.Models.Entities.Repositories.Entities.GenericRepository{CuratorMagazineWebAPI.Models.Entities.Group}" />
+/// Implements the <see cref="BaseRepository{T}.Models.Entities.Group}" />
 /// Implements the <see cref="IGroupRepository" />
 /// </summary>
-/// <seealso cref="CuratorMagazineWebAPI.Models.Entities.Repositories.Entities.GenericRepository{CuratorMagazineWebAPI.Models.Entities.Group}" />
+/// <seealso cref="BaseRepository{T}.Models.Entities.Group}" />
 /// <seealso cref="IGroupRepository" />
-public class GroupRepository : GenericRepository<Group>, IGroupRepository
+public class GroupRepository : BaseRepository<Group>, IGroupRepository
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="GroupRepository"/> class.

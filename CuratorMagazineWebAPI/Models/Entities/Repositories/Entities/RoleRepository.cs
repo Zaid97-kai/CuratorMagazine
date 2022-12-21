@@ -5,12 +5,12 @@ namespace CuratorMagazineWebAPI.Models.Entities.Repositories.Entities;
 
 /// <summary>
 /// Class RoleRepository.
-/// Implements the <see cref="CuratorMagazineWebAPI.Models.Entities.Repositories.Entities.GenericRepository{CuratorMagazineWebAPI.Models.Entities.Role}" />
+/// Implements the <see cref="BaseRepository{T}.Models.Entities.Role}" />
 /// Implements the <see cref="IRoleRepository" />
 /// </summary>
-/// <seealso cref="CuratorMagazineWebAPI.Models.Entities.Repositories.Entities.GenericRepository{CuratorMagazineWebAPI.Models.Entities.Role}" />
+/// <seealso cref="BaseRepository{T}.Models.Entities.Role}" />
 /// <seealso cref="IRoleRepository" />
-public class RoleRepository : GenericRepository<Role>, IRoleRepository
+public class RoleRepository : BaseRepository<Role>, IRoleRepository
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="RoleRepository" /> class.

@@ -5,10 +5,10 @@ namespace CuratorMagazineWebAPI.Models.Entities.Repositories.Entities;
 
 /// <summary>
 /// Class UserRepository.
-/// Implements the <see cref="CuratorMagazineWebAPI.Models.Entities.Repositories.Entities.GenericRepository{CuratorMagazineWebAPI.Models.Entities.User}" />
+/// Implements the <see cref="BaseRepository{T}.Models.Entities.User}" />
 /// </summary>
-/// <seealso cref="CuratorMagazineWebAPI.Models.Entities.Repositories.Entities.GenericRepository{CuratorMagazineWebAPI.Models.Entities.User}" />
-public class UserRepository : GenericRepository<User>, IUserRepository
+/// <seealso cref="BaseRepository{T}.Models.Entities.User}" />
+public class UserRepository : BaseRepository<User>, IUserRepository
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="UserRepository"/> class.

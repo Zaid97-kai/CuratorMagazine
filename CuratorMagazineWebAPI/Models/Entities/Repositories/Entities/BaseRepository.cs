@@ -1,16 +1,20 @@
 ﻿using CuratorMagazineWebAPI.Models.Context;
 using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 using System.Linq.Expressions;
+using CuratorMagazineWebAPI.Models.Bases.Filters;
+using Shared.Bases.Dtos.BaseHelpers;
+using Microsoft.EntityFrameworkCore;
+using X.PagedList;
 
 namespace CuratorMagazineWebAPI.Models.Entities.Repositories.Entities;
 
 /// <summary>
 /// Class GenericRepository.
-/// Implements the <see cref="IGenericRepository{T}" />
+/// Implements the <see cref="IBaseRepository{T}" />
 /// </summary>
 /// <typeparam name="T"></typeparam>
-/// <seealso cref="IGenericRepository{T}" />
-public class GenericRepository<T> : IGenericRepository<T> where T : class
+/// <seealso cref="IBaseRepository{T}" />
+public class BaseRepository<T> : IBaseRepository<T> where T : class
 {
     /// <summary>
     /// The context
@@ -18,10 +22,10 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     protected readonly CuratorMagazineContext Context;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GenericRepository{T}" /> class.
+    /// Initializes a new instance of the <see cref="BaseRepository{T}" /> class.
     /// </summary>
     /// <param name="context">The context.</param>
-    public GenericRepository(CuratorMagazineContext context)
+    public BaseRepository(CuratorMagazineContext context)
     {
         Context = context;
     }
@@ -52,6 +56,29 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     public async void Update(T entity)
     {
         Context.Set<T>().Update(entity);
+    }
+
+    public async Task<BaseDtoListResult> GetList(BaseFilterGetList filter)
+    {
+        var ret = _getQueue(filter).ToPagedListAsync(filter.page, 300).Result;
+        var items = ret.Select(s => s);
+        return new BaseDtoListResult
+        {
+            Items = items,
+            PageCount = items.PageCount
+        };
+    }
+
+    private IQueryable<User> _getQueue(BaseFilterGetList filter)
+    {
+        var queue = Context.Users.AsQueryable();
+
+        var queries = (filter.query ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        foreach (var q in queries)
+            queue = queue.Where(w => EF.Functions.ILike(w.Name, $"%{q}%"));
+        
+        queue = queue.OrderBy(o => o.Name);
+        return queue;
     }
 
     /// <summary>

@@ -39,7 +39,7 @@ public class UnitOfWork : IUnitOfWork
     /// Gets the user repository.
     /// </summary>
     /// <value>The user repository.</value>
-    public IUserRepository UserRepository { get; }
+    public UserRepository UserRepository { get; }
     /// <summary>
     /// Initializes a new instance of the <see cref="UnitOfWork"/> class.
     /// </summary>

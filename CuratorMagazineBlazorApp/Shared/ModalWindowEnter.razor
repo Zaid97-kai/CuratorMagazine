@@ -56,8 +56,8 @@
 
     public async void Authorization()
     {
-        var users = UserService.GetCardAsync(_model.Id);
+        var users = await UserService.PostAsync();
         
-        RoleCallback.InvokeAsync(users.Result.Result);
+        RoleCallback.InvokeAsync();
     }
 }

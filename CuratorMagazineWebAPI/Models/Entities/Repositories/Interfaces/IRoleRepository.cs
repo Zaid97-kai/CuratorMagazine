@@ -2,7 +2,7 @@
 
 /// <summary>Interface IRoleRepository
 /// Extends the <see cref="T:CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces.IGenericRepository`1" /></summary>
-public interface IRoleRepository : IGenericRepository<Role>
+public interface IRoleRepository : IBaseRepository<Role>
 {
     
 }
