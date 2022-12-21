@@ -2,7 +2,7 @@
 @using CuratorMagazineBlazorApp.Models.States
 <header  class="container">
     <MainHeader CurrentUser="@CurrentUser"></MainHeader>
-    <ModalWindowEnter RoleCallback="@SetUser"></ModalWindowEnter>
+    <CuratorMagazineBlazorApp.Shared.ModalWindows.ModalWindowEnter RoleCallback="@SetUser"></CuratorMagazineBlazorApp.Shared.ModalWindows.ModalWindowEnter>
     <ModalExitWindow UserNullCallback="@SetUserNull" ></ModalExitWindow>
     <NavBar></NavBar>
     <RoleNavBar CurrentUser="@CurrentUser" StateRoleNavBar="@StateRoleNavBar"  StateRoleNavBarCallback="@SetStateRoleNavBar"></RoleNavBar>

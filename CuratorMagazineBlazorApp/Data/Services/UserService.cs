@@ -86,7 +86,11 @@ public class UserService : BaseService
     /// <returns>A Task&lt;BaseResponse`1&gt; representing the asynchronous operation.</returns>
     public override async Task<BaseResponse<BaseDtoListResult>> PostAsync(string query = "")
     {
-        var parameters = new Dictionary<string, string> { { "query", query }, { "page", "1" } };
+        var parameters = new Dictionary<string, string>
+        {
+            { "query", query }, 
+            { "page", "1" }
+        };
         var ret = await SendAsync<BaseDtoListResult>("GetList", HttpMethod.Post, parameters);
         return ret;
     }

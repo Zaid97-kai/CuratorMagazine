@@ -1,8 +1,4 @@
-﻿@using CuratorMagazineWebAPI.Models.Entities
-@using Microsoft.AspNetCore.Components
-@using Newtonsoft.Json
-@using JsonSerializer = System.Text.Json.JsonSerializer
-@using CuratorMagazineBlazorApp.Data.Services
+﻿@using Microsoft.AspNetCore.Components
 
 <div class="modal fade" aria-labelledby="signInModelLabel" aria-hidden="true" tabindex="-1" id="signInModal">
     <div class="modal-dialog">
@@ -33,31 +29,3 @@
         </div>
     </div>
 </div>
-
-@code {
-
-    private User _model = new User();
-
-    [Parameter]
-    public EventCallback<User> RoleCallback { get; set; }
-
-    [Inject]
-    public UserService UserService { get; set; }
-
-    private void OnFinish(EditContext editContext)
-    {
-        Console.WriteLine($"Success:{JsonSerializer.Serialize(_model)}");
-    }
-
-    private void OnFinishFailed(EditContext editContext)
-    {
-        Console.WriteLine($"Failed:{JsonSerializer.Serialize(_model)}");
-    }
-
-    public async void Authorization()
-    {
-        var users = await UserService.PostAsync();
-        
-        RoleCallback.InvokeAsync();
-    }
-}
