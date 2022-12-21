@@ -23,7 +23,7 @@ public class UserController : Controller
     private readonly IUnitOfWork _unitOfWork;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UserController"/> class.
+    /// Initializes a new instance of the <see cref="UserController" /> class.
     /// </summary>
     /// <param name="unitOfWork">The unit of work.</param>
     public UserController(IUnitOfWork unitOfWork)
@@ -47,14 +47,20 @@ public class UserController : Controller
     /// <param name="id">The identifier.</param>
     /// <returns>ActionResult&lt;User&gt;.</returns>
     [HttpGet("{id}")]
-    public async Task<ActionResult<User>> Get(int id)
+    public async Task<BaseResponseActionResult<User>> Get(int id)
     {
-        var User = await _unitOfWork.UserRepository.GetById(id);
-        if (User == null)
-            return NotFound();
-        return new ObjectResult(User);
+        var user = await _unitOfWork.UserRepository.GetById(id);
+        if (user == null)
+            return new BaseNotFound();
+        
+        return user;
     }
 
+    /// <summary>
+    /// Gets the list.
+    /// </summary>
+    /// <param name="data">The data.</param>
+    /// <returns>BaseResponseActionResult&lt;BaseDtoListResult&gt;.</returns>
     [HttpPost("GetList")]
     public async Task<BaseResponseActionResult<BaseDtoListResult>> GetList([FromBody] BaseFilterGetList data)
     {

@@ -37,22 +37,20 @@ public class UserService : BaseService
     /// </summary>
     /// <param name="id">The identifier.</param>
     /// <returns>A Task&lt;OperationResult`1&gt; representing the asynchronous operation.</returns>
-    public async Task<OperationResult<User>> GetCardAsync(int id)
+    public async Task<BaseResponse<User>> GetAsync(int id)
     {
-        //var dto = await SendAsync<User>($"{id}", HttpMethod.Get);
-        //return dto;
-        return null;
+        var dto = await SendAsync<User>($"{id}", HttpMethod.Get);
+        return dto;
     }
 
     /// <summary>
     /// Create card as an asynchronous operation.
     /// </summary>
     /// <returns>A Task&lt;OperationResult`1&gt; representing the asynchronous operation.</returns>
-    public async Task<OperationResult<User>> CreateCardAsync()
+    public async Task<BaseResponse<User>> CreateCardAsync()
     {
-        //var dto = await SendAsync<User>("Create", HttpMethod.Post);
-        //return dto;
-        return null;
+        var dto = await SendAsync<User>($"Create", HttpMethod.Post);
+        return dto;
     }
 
     /// <summary>
