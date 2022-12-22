@@ -1,4 +1,5 @@
 ﻿using CuratorMagazineWebAPI.Models.Entities;
+using CuratorMagazineWebAPI.Models.Entities.Domains;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -42,7 +43,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasOne(x => x.Role)
             .WithMany(x => x.Users)
             .HasForeignKey(x => x.RoleId)
-            .IsRequired(true)
+            .IsRequired(false)
             .OnDelete(DeleteBehavior.Cascade);            
             
         builder

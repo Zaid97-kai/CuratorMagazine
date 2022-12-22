@@ -1,7 +1,7 @@
 ﻿using CuratorMagazineWebAPI.Models.Bases.ActionResults;
 using CuratorMagazineWebAPI.Models.Bases.Filters;
 using CuratorMagazineWebAPI.Models.Entities;
-using CuratorMagazineWebAPI.Models.Entities.Repositories.Entities;
+using CuratorMagazineWebAPI.Models.Entities.Domains;
 using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Bases.Dtos.BaseHelpers;
@@ -18,27 +18,17 @@ namespace CuratorMagazineWebAPI.Controllers;
 public class UserController : Controller
 {
     /// <summary>
-    /// The unit of work
+    /// The repository
     /// </summary>
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IUserRepository _repository;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UserController" /> class.
+    /// Initializes a new instance of the <see cref="UserController"/> class.
     /// </summary>
-    /// <param name="unitOfWork">The unit of work.</param>
-    public UserController(IUnitOfWork unitOfWork)
+    /// <param name="repository">The repository.</param>
+    public UserController(IUserRepository repository)
     {
-        _unitOfWork = unitOfWork;
-    }
-
-    /// <summary>
-    /// Gets this instance.
-    /// </summary>
-    /// <returns>IEnumerable&lt;User&gt;.</returns>
-    [HttpGet]
-    public async Task<IEnumerable<User>> Get()
-    {
-        return await _unitOfWork.UserRepository.GetAll();
+        _repository = repository;
     }
 
     /// <summary>
@@ -49,7 +39,7 @@ public class UserController : Controller
     [HttpGet("{id}")]
     public async Task<BaseResponseActionResult<User>> Get(int id)
     {
-        var user = await _unitOfWork.UserRepository.GetById(id);
+        var user = await _repository.GetById(id);
         if (user == null)
             return new BaseNotFound();
         
@@ -64,7 +54,7 @@ public class UserController : Controller
     [HttpPost("GetList")]
     public async Task<BaseResponseActionResult<BaseDtoListResult>> GetList([FromBody] BaseFilterGetList data)
     {
-        var ret = await _unitOfWork.UserRepository.GetList(data);
+        var ret = await _repository.GetList(data);
         return ret;
     }
 
@@ -74,15 +64,12 @@ public class UserController : Controller
     /// <param name="User">The user.</param>
     /// <returns>ActionResult&lt;User&gt;.</returns>
     [HttpPost]
-    public async Task<ActionResult<User>> Post(User? User)
+    public async Task<ActionResult<User>> Post([FromBody] User? User)
     {
         if (User == null)
-        {
-            return BadRequest();
-        }
+            return new BaseBadRequest();
 
-        _unitOfWork.UserRepository.Add(User);
-        _unitOfWork.Complete();
+        await _repository.Add(User);
         return Ok(User);
     }
 
@@ -99,8 +86,7 @@ public class UserController : Controller
             return BadRequest();
         }
 
-        _unitOfWork.UserRepository.Update(User);
-        _unitOfWork.Complete();
+        _repository.Update(User);
         return Ok(User);
     }
 
@@ -112,11 +98,10 @@ public class UserController : Controller
     [HttpDelete("{id}")]
     public async Task<ActionResult<User>> Delete(int id)
     {
-        var User = _unitOfWork.UserRepository.Find(x => x.Id == id).Result.FirstOrDefault();
+        var User = _repository.Find(x => x.Id == id).Result.FirstOrDefault();
 
         if (User == null) return NotFound();
-        _unitOfWork.UserRepository.Remove(User);
-        _unitOfWork.Complete();
+        _repository.Remove(User);
         return Ok(User);
     }
 }

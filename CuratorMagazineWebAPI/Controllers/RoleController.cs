@@ -1,4 +1,5 @@
 ﻿using CuratorMagazineWebAPI.Models.Entities;
+using CuratorMagazineWebAPI.Models.Entities.Domains;
 using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,27 +15,17 @@ namespace CuratorMagazineWebAPI.Controllers;
 public class RoleController : ControllerBase
 {
     /// <summary>
-    /// The unit of work
+    /// The repository
     /// </summary>
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IRoleRepository _repository;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RoleController"/> class.
     /// </summary>
-    /// <param name="unitOfWork">The unit of work.</param>
-    public RoleController(IUnitOfWork unitOfWork)
+    /// <param name="repository">The repository.</param>
+    public RoleController(IRoleRepository repository)
     {
-        _unitOfWork = unitOfWork;
-    }
-
-    /// <summary>
-    /// Gets this instance.
-    /// </summary>
-    /// <returns>IEnumerable&lt;Role&gt;.</returns>
-    [HttpGet]
-    public async Task<IEnumerable<Role>> Get()
-    {
-        return await _unitOfWork.RoleRepository.GetAll();
+        _repository = repository;
     }
 
     /// <summary>
@@ -45,7 +36,7 @@ public class RoleController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<Role>> Get(int id)
     {
-        var Role = await _unitOfWork.RoleRepository.GetById(id);
+        var Role = await _repository.GetById(id);
         if (Role == null)
             return NotFound();
         return new ObjectResult(Role);
@@ -64,8 +55,7 @@ public class RoleController : ControllerBase
             return BadRequest();
         }
 
-        _unitOfWork.RoleRepository.Add(Role);
-        _unitOfWork.Complete();
+        _repository.Add(Role);
         return Ok(Role);
     }
 
@@ -82,8 +72,7 @@ public class RoleController : ControllerBase
             return BadRequest();
         }
 
-        _unitOfWork.RoleRepository.Update(Role);
-        _unitOfWork.Complete();
+        _repository.Update(Role);
         return Ok(Role);
     }
 
@@ -95,11 +84,10 @@ public class RoleController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult<Role>> Delete(int id)
     {
-        var Role = _unitOfWork.RoleRepository.Find(x => x.Id == id).Result.FirstOrDefault();
+        var Role = _repository.Find(x => x.Id == id).Result.FirstOrDefault();
 
         if (Role == null) return NotFound();
-        _unitOfWork.RoleRepository.Remove(Role);
-        _unitOfWork.Complete();
+        _repository.Remove(Role);
         return Ok(Role);
     }
 }

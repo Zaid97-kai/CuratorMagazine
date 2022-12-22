@@ -2,6 +2,7 @@
 using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 using System.Linq.Expressions;
 using CuratorMagazineWebAPI.Models.Bases.Filters;
+using CuratorMagazineWebAPI.Models.Entities.Domains;
 using Shared.Bases.Dtos.BaseHelpers;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
@@ -34,9 +35,18 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
     /// Adds the specified entity.
     /// </summary>
     /// <param name="entity">The entity.</param>
-    public async void Add(T entity)
+    public async Task Add(T entity)
     {
-        Context.Set<T>().Add(entity);
+        try
+        {
+            Context.Set<T>().Add(entity);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+        await Context.SaveChangesAsync();
     }
 
     /// <summary>
@@ -58,9 +68,17 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
         Context.Set<T>().Update(entity);
     }
 
+    /// <summary>Gets the list.</summary>
+    /// <param name="filter">The filter.</param>
+    /// <returns>Task&lt;BaseDtoListResult&gt;.</returns>
     public async Task<BaseDtoListResult> GetList(BaseFilterGetList filter)
     {
-        var ret = _getQueue(filter).ToPagedListAsync(filter.page, 300).Result;
+        var ret = _getQueue(filter)
+            .Include(w => w.Role)
+                .ThenInclude(d => d.Users)
+            .Include(w => w.Division)
+                .ThenInclude(d => d.Users)
+            .ToPagedListAsync(filter.page, 300).Result;
         var items = ret.Select(s => s);
         return new BaseDtoListResult
         {
@@ -89,15 +107,6 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
     public async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> expression)
     {
         return Context.Set<T>().Where(expression);
-    }
-
-    /// <summary>
-    /// Gets all.
-    /// </summary>
-    /// <returns>IEnumerable&lt;T&gt;.</returns>
-    public async Task<IEnumerable<T>> GetAll()
-    {
-        return Context.Set<T>().ToList();
     }
 
     /// <summary>

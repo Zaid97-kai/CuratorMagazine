@@ -1,4 +1,6 @@
 ﻿using CuratorMagazineWebAPI.Models.Entities;
+using CuratorMagazineWebAPI.Models.Entities.Domains;
+using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CuratorMagazineWebAPI.Models.Context

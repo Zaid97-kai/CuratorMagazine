@@ -1,4 +1,5 @@
 ﻿using CuratorMagazineWebAPI.Models.Context;
+using CuratorMagazineWebAPI.Models.Entities.Domains;
 using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 
 namespace CuratorMagazineWebAPI.Models.Entities.Repositories.Entities;

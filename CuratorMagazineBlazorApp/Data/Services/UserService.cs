@@ -1,6 +1,7 @@
 ﻿using CuratorMagazineBlazorApp.Data.Common;
 using CuratorMagazineBlazorApp.Models.Bases;
 using CuratorMagazineWebAPI.Models.Entities;
+using CuratorMagazineWebAPI.Models.Entities.Domains;
 using Shared.Bases.Dtos.BaseHelpers;
 using Shared.Bases;
 

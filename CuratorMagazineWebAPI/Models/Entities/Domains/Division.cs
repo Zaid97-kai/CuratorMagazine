@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using CuratorMagazineWebAPI.Models.Entities.Domains;
 
 namespace CuratorMagazineWebAPI.Models.Entities;
 
@@ -22,5 +23,5 @@ public class Division
     /// </summary>
     /// <value>The users.</value>
     [JsonIgnore]
-    public virtual List<User> Users { get; set; }
+    public virtual List<User>? Users { get; set; }
 }

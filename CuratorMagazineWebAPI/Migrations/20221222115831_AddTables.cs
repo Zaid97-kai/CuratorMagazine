@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CuratorMagazineWebAPI.Migrations
 {
-    public partial class addTables : Migration
+    public partial class AddTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -94,8 +94,8 @@ namespace CuratorMagazineWebAPI.Migrations
                     MotherId = table.Column<int>(type: "integer", nullable: true),
                     FatherId = table.Column<int>(type: "integer", nullable: true),
                     GroupId = table.Column<int>(type: "integer", nullable: true),
-                    RoleId = table.Column<int>(type: "integer", nullable: false),
-                    DivisionId = table.Column<int>(type: "integer", nullable: false)
+                    RoleId = table.Column<int>(type: "integer", nullable: true),
+                    DivisionId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {

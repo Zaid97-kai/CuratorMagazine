@@ -4,7 +4,6 @@ using CuratorMagazineWebAPI.Models.Context;
 using Microsoft.OpenApi.Models;
 using CuratorMagazineWebAPI.Models.Entities.Repositories.Entities;
 using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
-using CuratorMagazineWebAPI.Models.Entities.Repositories.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,7 +30,6 @@ builder.Services.AddTransient<IGroupRepository, GroupRepository>();
 builder.Services.AddTransient<IParentRepository, ParentRepository>();
 builder.Services.AddTransient<IRoleRepository, RoleRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
-builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 #endregion
 
 builder.Services.AddDataProtection().PersistKeysToDbContext<CuratorMagazineContext>();

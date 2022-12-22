@@ -1,4 +1,5 @@
 ﻿using CuratorMagazineWebAPI.Models.Entities;
+using CuratorMagazineWebAPI.Models.Entities.Domains;
 using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,27 +15,17 @@ namespace CuratorMagazineWebAPI.Controllers;
 public class ParentController : Controller
 {
     /// <summary>
-    /// The unit of work
+    /// The repository
     /// </summary>
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IParentRepository _repository;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ParentController"/> class.
     /// </summary>
-    /// <param name="unitOfWork">The unit of work.</param>
-    public ParentController(IUnitOfWork unitOfWork)
+    /// <param name="repository">The repository.</param>
+    public ParentController(IParentRepository repository)
     {
-        _unitOfWork = unitOfWork;
-    }
-
-    /// <summary>
-    /// Gets this instance.
-    /// </summary>
-    /// <returns>IEnumerable&lt;Parent&gt;.</returns>
-    [HttpGet]
-    public async Task<IEnumerable<Parent>> Get()
-    {
-        return await _unitOfWork.ParentRepository.GetAll();
+        _repository = repository;
     }
 
     /// <summary>
@@ -45,7 +36,7 @@ public class ParentController : Controller
     [HttpGet("{id}")]
     public async Task<ActionResult<Parent>> Get(int id)
     {
-        var Parent = await _unitOfWork.ParentRepository.GetById(id);
+        var Parent = await _repository.GetById(id);
         if (Parent == null)
             return NotFound();
         return new ObjectResult(Parent);
@@ -64,8 +55,7 @@ public class ParentController : Controller
             return BadRequest();
         }
 
-        _unitOfWork.ParentRepository.Add(Parent);
-        _unitOfWork.Complete();
+        _repository.Add(Parent);
         return Ok(Parent);
     }
 
@@ -82,8 +72,7 @@ public class ParentController : Controller
             return BadRequest();
         }
 
-        _unitOfWork.ParentRepository.Update(Parent);
-        _unitOfWork.Complete();
+        _repository.Update(Parent);
         return Ok(Parent);
     }
 
@@ -95,11 +84,10 @@ public class ParentController : Controller
     [HttpDelete("{id}")]
     public async Task<ActionResult<Parent>> Delete(int id)
     {
-        var Parent = _unitOfWork.ParentRepository.Find(x => x.Id == id).Result.FirstOrDefault();
+        var Parent = _repository.Find(x => x.Id == id).Result.FirstOrDefault();
 
         if (Parent == null) return NotFound();
-        _unitOfWork.ParentRepository.Remove(Parent);
-        _unitOfWork.Complete();
+        _repository.Remove(Parent);
         return Ok(Parent);
     }
 }
