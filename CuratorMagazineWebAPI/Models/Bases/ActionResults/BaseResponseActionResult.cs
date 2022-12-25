@@ -4,6 +4,12 @@ using Shared.Bases;
 
 namespace CuratorMagazineWebAPI.Models.Bases.ActionResults;
 
+/// <summary>
+/// Class BaseResponseActionResult. This class cannot be inherited.
+/// Implements the <see cref="IConvertToActionResult" />
+/// </summary>
+/// <typeparam name="TValue">The type of the t value.</typeparam>
+/// <seealso cref="IConvertToActionResult" />
 public sealed class BaseResponseActionResult<TValue> : IConvertToActionResult
 {
     /// <summary>

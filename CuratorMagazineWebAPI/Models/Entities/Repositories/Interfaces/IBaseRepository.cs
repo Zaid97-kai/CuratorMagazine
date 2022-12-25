@@ -36,24 +36,16 @@ public interface IBaseRepository<T> where T : class
     /// </summary>
     /// <param name="entity">The entity.</param>
     Task Add(T entity);
-    /// <summary>
-    /// Adds the range.
-    /// </summary>
-    /// <param name="entities">The entities.</param>
-    void AddRange(IEnumerable<T> entities);
+
     /// <summary>
     /// Updates the specified entity.
     /// </summary>
     /// <param name="entity">The entity.</param>
-    void Update(T entity);
+    Task Update(T entity);
+
     /// <summary>
     /// Removes the specified entity.
     /// </summary>
     /// <param name="entity">The entity.</param>
-    void Remove(T entity);
-    /// <summary>
-    /// Removes the range.
-    /// </summary>
-    /// <param name="entities">The entities.</param>
-    void RemoveRange(IEnumerable<T> entities);
+    Task Remove(T entity);
 }
