@@ -2,7 +2,6 @@
 using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 using System.Linq.Expressions;
 using CuratorMagazineWebAPI.Models.Bases.Filters;
-using CuratorMagazineWebAPI.Models.Entities.Domains;
 using Shared.Bases.Dtos.BaseHelpers;
 
 namespace CuratorMagazineWebAPI.Models.Entities.Repositories.Entities;
@@ -32,7 +31,7 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
     /// </summary>
     /// <param name="filter">The filter.</param>
     /// <returns>IQueryable&lt;User&gt;.</returns>
-    protected abstract IQueryable<T> _getQueue(BaseFilterGetList filter);
+    protected abstract IQueryable<T> GetQueue(BaseFilterGetList filter);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BaseRepository{T}" /> class.
@@ -57,10 +56,10 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
     /// Updates the specified entity.
     /// </summary>
     /// <param name="entity">The entity.</param>
-    /// <exception cref="System.NotImplementedException"></exception>
-    public async void Update(T entity)
+    public async Task Update(T entity)
     {
         Context.Set<T>().Update(entity);
+        await Context.SaveChangesAsync();
     }
 
     /// <summary>
@@ -87,8 +86,9 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
     /// Removes the specified entity.
     /// </summary>
     /// <param name="entity">The entity.</param>
-    public async void Remove(T entity)
+    public async Task Remove(T entity)
     {
         Context.Set<T>().Remove(entity);
+        await Context.SaveChangesAsync();
     }
 }

@@ -1,8 +1,10 @@
-﻿using CuratorMagazineWebAPI.Controllers.Bases;
-using CuratorMagazineWebAPI.Models.Entities;
-using CuratorMagazineWebAPI.Models.Entities.Domains;
-using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
+﻿using Shared.Bases.Dtos.BaseHelpers;
 using Microsoft.AspNetCore.Mvc;
+using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
+using CuratorMagazineWebAPI.Models.Entities.Domains;
+using CuratorMagazineWebAPI.Models.Bases.Filters;
+using CuratorMagazineWebAPI.Models.Bases.ActionResults;
+using CuratorMagazineWebAPI.Controllers.Bases;
 
 namespace CuratorMagazineWebAPI.Controllers;
 
@@ -31,47 +33,61 @@ public class DivisionController : BaseController
     /// Gets the specified identifier.
     /// </summary>
     /// <param name="id">The identifier.</param>
-    /// <returns>ActionResult&lt;Division&gt;.</returns>
+    /// <returns>BaseResponseActionResult&lt;Division&gt;.</returns>
     [HttpGet("{id}")]
-    public async Task<ActionResult<Division>> Get(int id)
+    public async Task<BaseResponseActionResult<Division>> Get(int id)
     {
         var division = await _repository.GetById(id);
+
         if (division == null)
             return NotFound();
-        return new ObjectResult(division);
+
+        return division;
+    }
+
+    /// <summary>
+    /// Gets the list.
+    /// </summary>
+    /// <param name="data">The data.</param>
+    /// <returns>BaseResponseActionResult&lt;BaseDtoListResult&gt;.</returns>
+    [HttpPost("GetList")]
+    public async Task<BaseResponseActionResult<BaseDtoListResult>> GetList([FromBody] BaseFilterGetList data)
+    {
+        var ret = await _repository.GetList(data);
+        return ret;
     }
 
     /// <summary>
     /// Posts the specified division.
     /// </summary>
     /// <param name="division">The division.</param>
-    /// <returns>ActionResult&lt;Division&gt;.</returns>
+    /// <returns>BaseResponseActionResult&lt;Division&gt;.</returns>
     [HttpPost]
-    public async Task<ActionResult<Division>> Post(Division? division)
+    public async Task<BaseResponseActionResult<Division>> Post(Division? division)
     {
         if (division == null)
         {
             return BadRequest();
         }
 
-        _repository.Add(division);
-        return Ok(division);
+        await _repository.Add(division);
+        return division;
     }
 
     /// <summary>
     /// Puts the specified division.
     /// </summary>
     /// <param name="division">The division.</param>
-    /// <returns>ActionResult&lt;Division&gt;.</returns>
+    /// <returns>BaseResponseActionResult&lt;Division&gt;.</returns>
     [HttpPut]
-    public async Task<ActionResult<Division>> Put(Division? division)
+    public async Task<BaseResponseActionResult<Division>> Put(Division? division)
     {
         if (division == null)
         {
             return BadRequest();
         }
         
-        _repository.Update(division);
+        await _repository.Update(division);
         return Ok(division);
     }
 
@@ -79,14 +95,16 @@ public class DivisionController : BaseController
     /// Deletes the specified identifier.
     /// </summary>
     /// <param name="id">The identifier.</param>
-    /// <returns>ActionResult&lt;User&gt;.</returns>
+    /// <returns>BaseResponseActionResult&lt;Division&gt;.</returns>
     [HttpDelete("{id}")]
-    public async Task<ActionResult<Division>> Delete(int id)
+    public async Task<BaseResponseActionResult<Division>> Delete(int id)
     {
         var division = _repository.Find(x => x.Id == id).Result.FirstOrDefault();
 
-        if (division == null) return NotFound();
-        _repository.Remove(division);
-        return Ok(division);
+        if (division == null) 
+            return NotFound();
+
+        await _repository.Remove(division);
+        return division;
     }
 }

@@ -1,6 +1,10 @@
-﻿using CuratorMagazineWebAPI.Models.Entities.Domains;
-using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
+﻿using Shared.Bases.Dtos.BaseHelpers;
 using Microsoft.AspNetCore.Mvc;
+using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
+using CuratorMagazineWebAPI.Models.Entities.Domains;
+using CuratorMagazineWebAPI.Models.Bases.Filters;
+using CuratorMagazineWebAPI.Models.Bases.ActionResults;
+using CuratorMagazineWebAPI.Controllers.Bases;
 
 namespace CuratorMagazineWebAPI.Controllers;
 
@@ -9,7 +13,7 @@ namespace CuratorMagazineWebAPI.Controllers;
 /// Implements the <see cref="Controller" />
 /// </summary>
 /// <seealso cref="Controller" />
-public class ParentController : Controller
+public class ParentController : BaseController
 {
     /// <summary>
     /// The repository
@@ -29,62 +33,76 @@ public class ParentController : Controller
     /// Gets the specified identifier.
     /// </summary>
     /// <param name="id">The identifier.</param>
-    /// <returns>ActionResult&lt;Parent&gt;.</returns>
+    /// <returns>BaseResponseActionResult&lt;Parent&gt;.</returns>
     [HttpGet("{id}")]
-    public async Task<ActionResult<Parent>> Get(int id)
+    public async Task<BaseResponseActionResult<Parent>> Get(int id)
     {
-        var Parent = await _repository.GetById(id);
-        if (Parent == null)
+        var parent = await _repository.GetById(id);
+
+        if (parent == null)
             return NotFound();
-        return new ObjectResult(Parent);
+
+        return parent;
+    }
+
+    /// <summary>
+    /// Gets the list.
+    /// </summary>
+    /// <param name="data">The data.</param>
+    /// <returns>BaseResponseActionResult&lt;BaseDtoListResult&gt;.</returns>
+    [HttpPost("GetList")]
+    public async Task<BaseResponseActionResult<BaseDtoListResult>> GetList([FromBody] BaseFilterGetList data)
+    {
+        var ret = await _repository.GetList(data);
+        return ret;
     }
 
     /// <summary>
     /// Posts the specified parent.
     /// </summary>
-    /// <param name="Parent">The parent.</param>
-    /// <returns>ActionResult&lt;Parent&gt;.</returns>
+    /// <param name="parent">The parent.</param>
+    /// <returns>BaseResponseActionResult&lt;Parent&gt;.</returns>
     [HttpPost]
-    public async Task<ActionResult<Parent>> Post(Parent? Parent)
+    public async Task<BaseResponseActionResult<Parent>> Post(Parent? parent)
     {
-        if (Parent == null)
-        {
-            return BadRequest();
-        }
+        if (parent == null)
+            return new BaseBadRequest();
 
-        _repository.Add(Parent);
-        return Ok(Parent);
+        await _repository.Add(parent);
+        return parent;
     }
 
     /// <summary>
     /// Puts the specified parent.
     /// </summary>
-    /// <param name="Parent">The parent.</param>
-    /// <returns>ActionResult&lt;Parent&gt;.</returns>
+    /// <param name="parent">The parent.</param>
+    /// <returns>BaseResponseActionResult&lt;Parent&gt;.</returns>
     [HttpPut]
-    public async Task<ActionResult<Parent>> Put(Parent? Parent)
+    public async Task<BaseResponseActionResult<Parent>> Put(Parent? parent)
     {
-        if (Parent == null)
+        if (parent == null)
         {
             return BadRequest();
         }
 
-        _repository.Update(Parent);
-        return Ok(Parent);
+        await _repository.Update(parent);
+        return parent;
     }
 
     /// <summary>
     /// Deletes the specified identifier.
     /// </summary>
     /// <param name="id">The identifier.</param>
-    /// <returns>ActionResult&lt;Parent&gt;.</returns>
+    /// <returns>BaseResponseActionResult&lt;Parent&gt;.</returns>
     [HttpDelete("{id}")]
-    public async Task<ActionResult<Parent>> Delete(int id)
+    public async Task<BaseResponseActionResult<Parent>> Delete(int id)
     {
-        var Parent = _repository.Find(x => x.Id == id).Result.FirstOrDefault();
+        var parent = _repository.Find(x => x.Id == id).Result.FirstOrDefault();
 
-        if (Parent == null) return NotFound();
-        _repository.Remove(Parent);
-        return Ok(Parent);
+        if (parent == null)
+            return NotFound();
+
+        await _repository.Remove(parent);
+        return parent;
     }
 }

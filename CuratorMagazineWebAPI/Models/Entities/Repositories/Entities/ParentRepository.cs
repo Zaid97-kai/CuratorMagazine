@@ -32,7 +32,7 @@ public class ParentRepository : BaseRepository<Parent>, IParentRepository
     /// <returns>Task&lt;BaseDtoListResult&gt;.</returns>
     public override async Task<BaseDtoListResult> GetList(BaseFilterGetList filter)
     {
-        var ret = _getQueue(filter)
+        var ret = GetQueue(filter)
             .Include(w => w.FatherChildrens)
             .Include(w => w.MotherChildrens)
             .ToPagedListAsync(filter.page, 300).Result;
@@ -51,7 +51,7 @@ public class ParentRepository : BaseRepository<Parent>, IParentRepository
     /// </summary>
     /// <param name="filter">The filter.</param>
     /// <returns>IQueryable&lt;User&gt;.</returns>
-    protected override IQueryable<Parent> _getQueue(BaseFilterGetList filter)
+    protected override IQueryable<Parent> GetQueue(BaseFilterGetList filter)
     {
         var queue = Context.Parents.AsQueryable();
 

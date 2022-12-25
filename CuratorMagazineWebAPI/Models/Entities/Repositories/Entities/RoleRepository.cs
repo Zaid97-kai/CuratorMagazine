@@ -32,7 +32,7 @@ public class RoleRepository : BaseRepository<Role>, IRoleRepository
     /// <returns>Task&lt;BaseDtoListResult&gt;.</returns>
     public override async Task<BaseDtoListResult> GetList(BaseFilterGetList filter)
     {
-        var ret = _getQueue(filter)
+        var ret = GetQueue(filter)
             .Include(w => w.Users)
             .ToPagedListAsync(filter.page, 300).Result;
 
@@ -50,7 +50,7 @@ public class RoleRepository : BaseRepository<Role>, IRoleRepository
     /// </summary>
     /// <param name="filter">The filter.</param>
     /// <returns>IQueryable&lt;User&gt;.</returns>
-    protected override IQueryable<Role> _getQueue(BaseFilterGetList filter)
+    protected override IQueryable<Role> GetQueue(BaseFilterGetList filter)
     {
         var queue = Context.Roles.AsQueryable();
 

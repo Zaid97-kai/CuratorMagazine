@@ -41,11 +41,11 @@ public interface IBaseRepository<T> where T : class
     /// Updates the specified entity.
     /// </summary>
     /// <param name="entity">The entity.</param>
-    void Update(T entity);
+    Task Update(T entity);
 
     /// <summary>
     /// Removes the specified entity.
     /// </summary>
     /// <param name="entity">The entity.</param>
-    void Remove(T entity);
+    Task Remove(T entity);
 }

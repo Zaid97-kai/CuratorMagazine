@@ -30,7 +30,7 @@ public class UserRepository : BaseRepository<User>, IUserRepository
     /// <returns>Task&lt;BaseDtoListResult&gt;.</returns>
     public override async Task<BaseDtoListResult> GetList(BaseFilterGetList filter)
     {
-        var ret = _getQueue(filter)
+        var ret = GetQueue(filter)
             .Include(w => w.Role)
                 .ThenInclude(d => d!.Users)
             .Include(w => w.Division)
@@ -51,7 +51,7 @@ public class UserRepository : BaseRepository<User>, IUserRepository
     /// </summary>
     /// <param name="filter">The filter.</param>
     /// <returns>IQueryable&lt;User&gt;.</returns>
-    protected override IQueryable<User> _getQueue(BaseFilterGetList filter)
+    protected override IQueryable<User> GetQueue(BaseFilterGetList filter)
     {
         var queue = Context.Users.AsQueryable();
 

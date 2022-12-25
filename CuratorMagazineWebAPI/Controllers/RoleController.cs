@@ -1,7 +1,10 @@
-﻿using CuratorMagazineWebAPI.Controllers.Bases;
-using CuratorMagazineWebAPI.Models.Entities.Domains;
-using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
+﻿using Shared.Bases.Dtos.BaseHelpers;
 using Microsoft.AspNetCore.Mvc;
+using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
+using CuratorMagazineWebAPI.Models.Entities.Domains;
+using CuratorMagazineWebAPI.Models.Bases.Filters;
+using CuratorMagazineWebAPI.Models.Bases.ActionResults;
+using CuratorMagazineWebAPI.Controllers.Bases;
 
 namespace CuratorMagazineWebAPI.Controllers;
 
@@ -30,62 +33,75 @@ public class RoleController : BaseController
     /// Gets the specified identifier.
     /// </summary>
     /// <param name="id">The identifier.</param>
-    /// <returns>ActionResult&lt;Role&gt;.</returns>
+    /// <returns>BaseResponseActionResult&lt;Role&gt;.</returns>
     [HttpGet("{id}")]
-    public async Task<ActionResult<Role>> Get(int id)
+    public async Task<BaseResponseActionResult<Role>> Get(int id)
     {
-        var Role = await _repository.GetById(id);
-        if (Role == null)
-            return NotFound();
-        return new ObjectResult(Role);
+        var role = await _repository.GetById(id);
+        if (role == null)
+            return new BaseNotFound();
+
+        return role;
+    }
+
+    /// <summary>
+    /// Gets the list.
+    /// </summary>
+    /// <param name="data">The data.</param>
+    /// <returns>BaseResponseActionResult&lt;BaseDtoListResult&gt;.</returns>
+    [HttpPost("GetList")]
+    public async Task<BaseResponseActionResult<BaseDtoListResult>> GetList([FromBody] BaseFilterGetList data)
+    {
+        var ret = await _repository.GetList(data);
+        return ret;
     }
 
     /// <summary>
     /// Posts the specified role.
     /// </summary>
-    /// <param name="Role">The role.</param>
-    /// <returns>ActionResult&lt;Role&gt;.</returns>
+    /// <param name="role">The role.</param>
+    /// <returns>BaseResponseActionResult&lt;Role&gt;.</returns>
     [HttpPost]
-    public async Task<ActionResult<Role>> Post(Role? Role)
+    public async Task<BaseResponseActionResult<Role>> Post([FromBody] Role? role)
     {
-        if (Role == null)
-        {
-            return BadRequest();
-        }
+        if (role == null)
+            return new BaseBadRequest();
 
-        _repository.Add(Role);
-        return Ok(Role);
+        await _repository.Add(role);
+        return role;
     }
 
     /// <summary>
     /// Puts the specified role.
     /// </summary>
-    /// <param name="Role">The role.</param>
-    /// <returns>ActionResult&lt;Role&gt;.</returns>
+    /// <param name="role">The role.</param>
+    /// <returns>BaseResponseActionResult&lt;Role&gt;.</returns>
     [HttpPut]
-    public async Task<ActionResult<Role>> Put(Role? Role)
+    public async Task<BaseResponseActionResult<Role>> Put(Role? role)
     {
-        if (Role == null)
+        if (role == null)
         {
             return BadRequest();
         }
 
-        _repository.Update(Role);
-        return Ok(Role);
+        await _repository.Update(role);
+        return role;
     }
 
     /// <summary>
     /// Deletes the specified identifier.
     /// </summary>
     /// <param name="id">The identifier.</param>
-    /// <returns>ActionResult&lt;Role&gt;.</returns>
+    /// <returns>BaseResponseActionResult&lt;Role&gt;.</returns>
     [HttpDelete("{id}")]
-    public async Task<ActionResult<Role>> Delete(int id)
+    public async Task<BaseResponseActionResult<Role>> Delete(int id)
     {
-        var Role = _repository.Find(x => x.Id == id).Result.FirstOrDefault();
+        var role = _repository.Find(x => x.Id == id).Result.FirstOrDefault();
 
-        if (Role == null) return NotFound();
-        _repository.Remove(Role);
-        return Ok(Role);
+        if (role == null) 
+            return NotFound();
+
+        await _repository.Remove(role);
+        return role;
     }
 }
