@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.DataProtection;
 using CuratorMagazineWebAPI.DependencyInjection;
 using CuratorMagazineWebAPI.Models.Context;
 using Microsoft.OpenApi.Models;
+using CuratorMagazineWebAPI.Models.Entities.Repositories.Entities;
+using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +22,16 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.Services.AddPersistence(builder.Configuration);
+
+#region Repositories
+builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+builder.Services.AddTransient<IDivisionRepository, DivisionRepository>();
+builder.Services.AddTransient<IGroupRepository, GroupRepository>();
+builder.Services.AddTransient<IParentRepository, ParentRepository>();
+builder.Services.AddTransient<IRoleRepository, RoleRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+#endregion
+
 builder.Services.AddDataProtection().PersistKeysToDbContext<CuratorMagazineContext>();
 
 var app = builder.Build();

@@ -1,4 +1,6 @@
 ﻿@using CuratorMagazineWebAPI.Models.Entities
+@using CuratorMagazineBlazorApp.Models.States
+@using CuratorMagazineWebAPI.Models.Entities.Domains
 @if (CurrentUser?.RoleId == 1)
 {
     <div class="collapse" id="navbarToggleExternalContent">
@@ -43,13 +45,13 @@ else
     <div class="collapse " id="navbarToggleExternalContent">
         <ul class="nav nav-pills nav-fill bg-secondary bg-opacity-50">
             <li class="nav-item">
-                <a class="nav-link text-white" href="/DirectorEW/DirectorEW.html">НАЧАЛЬНИК УВР</a>
+                <a class="nav-link text-white" @onclick="ChangeOnHeadStateRoleNavBar">НАЧАЛЬНИК УВР</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" href="/ViceDirectorEW/ViceDirectorEW.html">ЗАМДИРЕКТОРА ПО ВР</a>
+                <a class="nav-link text-white" @onclick="ChangeOnViceStateRoleNavBar">ЗАМЕСТИТЕЛЬ ДИРЕКТОРА ПО ВР</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" href="/Curator/Curator.html">КУРАТОР-НАСТАВНИК</a>
+                <a class="nav-link text-white" @onclick="ChangeTutorOnStateRoleNavBar">КУРАТОР-НАСТАВНИК</a>
             </li>
         </ul>
     </div>
@@ -57,4 +59,28 @@ else
 @code {
     [Parameter]
     public User? CurrentUser { get; set; }
+
+    [Parameter]
+    public StateRoleNavBar? StateRoleNavBar { get; set; } = new();
+
+    [Parameter]
+    public EventCallback<StateRoleNavBar> StateRoleNavBarCallback { get; set; }
+
+    public void ChangeOnHeadStateRoleNavBar()
+    {
+        StateRoleNavBar = new StateRoleNavBar() { RoleName = "Head" };
+        StateRoleNavBarCallback.InvokeAsync(StateRoleNavBar);
+    }
+
+    public void ChangeOnViceStateRoleNavBar()
+    {
+        StateRoleNavBar = new StateRoleNavBar() { RoleName = "Vice" };
+        StateRoleNavBarCallback.InvokeAsync(StateRoleNavBar);
+    }
+
+    public void ChangeTutorOnStateRoleNavBar()
+    {
+        StateRoleNavBar = new StateRoleNavBar() { RoleName = "Tutor" };
+        StateRoleNavBarCallback.InvokeAsync(StateRoleNavBar);
+    }
 }

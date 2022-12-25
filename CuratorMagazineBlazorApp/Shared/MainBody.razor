@@ -1,22 +1,23 @@
-﻿<div class="container my-5">
-    <div class="row">
-        <div class="col-md-4">
-            <img class="w-100" src="../img/zz.jpg" alt="">
-        </div>
-        <div class="col-md-8 text-center">
-            <h1>About us</h1>
-            <h2>"Лучший наставник не лучшего ученика."</h2>
-        </div>
-        <div class="col-md-4 mt-5">
-            <img class="w-100" src="../img/rr.jpg" alt="">
-        </div>
-        <div class="col-md-8 mt-5 text-center">
-            <h1>About us</h1>
-            <h2>"Не лучший ученик лучшего наставника."</h2>
-        </div>
-    </div>
-</div>
+﻿@switch (@StateRoleNavBar?.RoleName)
+{
+    case "Head":
+        <WorkWithVDEW></WorkWithVDEW>
+        break;
+    case "Vice":
+        break;
+    case "Tutor":
+        break;
+    default:
+        <CarouselComponent></CarouselComponent>
+        <Introduction></Introduction>
+        break;
+}
 
 @code {
 
+    [Parameter]
+    public StateRoleNavBar? StateRoleNavBar { get; set; }
+
+    [Parameter]
+    public EventCallback<StateRoleNavBar> StateRoleNavBarCallback { get; set; }
 }

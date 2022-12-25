@@ -1,4 +1,5 @@
 ﻿using CuratorMagazineWebAPI.Models.Entities;
+using CuratorMagazineWebAPI.Models.Entities.Domains;
 using CuratorMagazineWebAPI.Models.EntityTypeConfigurations;
 using Microsoft.EntityFrameworkCore;
 using DataProtectionKey = Microsoft.AspNetCore.DataProtection.EntityFrameworkCore.DataProtectionKey;
@@ -88,6 +89,6 @@ namespace CuratorMagazineWebAPI.Models.Context
         /// A collection of <see cref="T:Microsoft.AspNetCore.DataProtection.EntityFrameworkCore.DataProtectionKey" />
         /// </summary>
         /// <value>The data protection keys.</value>
-        public DbSet<DataProtectionKey> DataProtectionKeys { get; }
+        public DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
     }
 }

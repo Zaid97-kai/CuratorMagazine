@@ -1,11 +1,11 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace CuratorMagazineWebAPI.Models.Entities;
+namespace CuratorMagazineWebAPI.Models.Entities.Domains;
 
 /// <summary>
-/// Class Division.
+/// Class Group.
 /// </summary>
-public class Division
+public class Group
 {
     /// <summary>
     /// Gets or sets the identifier.
@@ -22,5 +22,5 @@ public class Division
     /// </summary>
     /// <value>The users.</value>
     [JsonIgnore]
-    public virtual List<User> Users { get; set; }
+    public virtual List<User>? Users { get; set; }
 }

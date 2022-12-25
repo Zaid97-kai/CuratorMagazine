@@ -1,13 +1,21 @@
-using CuratorMagazineBlazorApp.Data;
+using CuratorMagazineBlazorApp.Data.Services;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddAntDesign();
 builder.Services.AddCors();
+
+builder.Services.AddSingleton<UserService>();
+
+builder.Services.AddHttpClient("CuratorMagazineWebAPI", client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["APP_API"]);
+    client.Timeout = TimeSpan.FromMinutes(15);
+});
 
 var app = builder.Build();
 
@@ -26,6 +34,6 @@ app.UseRouting();
 app.UseCors(builder => builder.AllowAnyOrigin());
 
 app.MapBlazorHub();
-app.MapFallbackToPage("/_Host");
+app.MapFallbackToPage("/Index");
 
 app.Run();

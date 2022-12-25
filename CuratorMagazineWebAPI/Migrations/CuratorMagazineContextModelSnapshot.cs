@@ -39,7 +39,7 @@ namespace CuratorMagazineWebAPI.Migrations
                     b.ToTable("Divisions");
                 });
 
-            modelBuilder.Entity("CuratorMagazineWebAPI.Models.Entities.Group", b =>
+            modelBuilder.Entity("CuratorMagazineWebAPI.Models.Entities.Domains.Group", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,7 +56,7 @@ namespace CuratorMagazineWebAPI.Migrations
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("CuratorMagazineWebAPI.Models.Entities.Parent", b =>
+            modelBuilder.Entity("CuratorMagazineWebAPI.Models.Entities.Domains.Parent", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -81,7 +81,7 @@ namespace CuratorMagazineWebAPI.Migrations
                     b.ToTable("Parents");
                 });
 
-            modelBuilder.Entity("CuratorMagazineWebAPI.Models.Entities.Role", b =>
+            modelBuilder.Entity("CuratorMagazineWebAPI.Models.Entities.Domains.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -98,7 +98,7 @@ namespace CuratorMagazineWebAPI.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("CuratorMagazineWebAPI.Models.Entities.User", b =>
+            modelBuilder.Entity("CuratorMagazineWebAPI.Models.Entities.Domains.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -112,7 +112,7 @@ namespace CuratorMagazineWebAPI.Migrations
                     b.Property<DateTime?>("BirthDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("DivisionId")
+                    b.Property<int?>("DivisionId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Email")
@@ -143,7 +143,7 @@ namespace CuratorMagazineWebAPI.Migrations
                     b.Property<byte[]>("ProfilePhoto")
                         .HasColumnType("bytea");
 
-                    b.Property<int>("RoleId")
+                    b.Property<int?>("RoleId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -180,33 +180,32 @@ namespace CuratorMagazineWebAPI.Migrations
                     b.ToTable("DataProtectionKeys");
                 });
 
-            modelBuilder.Entity("CuratorMagazineWebAPI.Models.Entities.User", b =>
+            modelBuilder.Entity("CuratorMagazineWebAPI.Models.Entities.Domains.User", b =>
                 {
                     b.HasOne("CuratorMagazineWebAPI.Models.Entities.Division", "Division")
                         .WithMany("Users")
                         .HasForeignKey("DivisionId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("CuratorMagazineWebAPI.Models.Entities.Parent", "Father")
+                    b.HasOne("CuratorMagazineWebAPI.Models.Entities.Domains.Parent", "Father")
                         .WithMany("FatherChildrens")
                         .HasForeignKey("FatherId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("CuratorMagazineWebAPI.Models.Entities.Group", "Group")
+                    b.HasOne("CuratorMagazineWebAPI.Models.Entities.Domains.Group", "Group")
                         .WithMany("Users")
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("CuratorMagazineWebAPI.Models.Entities.Parent", "Mother")
+                    b.HasOne("CuratorMagazineWebAPI.Models.Entities.Domains.Parent", "Mother")
                         .WithMany("MotherChildrens")
                         .HasForeignKey("MotherId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("CuratorMagazineWebAPI.Models.Entities.Role", "Role")
+                    b.HasOne("CuratorMagazineWebAPI.Models.Entities.Domains.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Division");
 
@@ -224,19 +223,19 @@ namespace CuratorMagazineWebAPI.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("CuratorMagazineWebAPI.Models.Entities.Group", b =>
+            modelBuilder.Entity("CuratorMagazineWebAPI.Models.Entities.Domains.Group", b =>
                 {
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("CuratorMagazineWebAPI.Models.Entities.Parent", b =>
+            modelBuilder.Entity("CuratorMagazineWebAPI.Models.Entities.Domains.Parent", b =>
                 {
                     b.Navigation("FatherChildrens");
 
                     b.Navigation("MotherChildrens");
                 });
 
-            modelBuilder.Entity("CuratorMagazineWebAPI.Models.Entities.Role", b =>
+            modelBuilder.Entity("CuratorMagazineWebAPI.Models.Entities.Domains.Role", b =>
                 {
                     b.Navigation("Users");
                 });

@@ -1,7 +1,4 @@
-﻿@using CuratorMagazineWebAPI.Models.Entities
-@using Microsoft.AspNetCore.Components
-@using Newtonsoft.Json
-@using JsonSerializer = System.Text.Json.JsonSerializer
+﻿@using Microsoft.AspNetCore.Components
 
 <div class="modal fade" aria-labelledby="signInModelLabel" aria-hidden="true" tabindex="-1" id="signInModal">
     <div class="modal-dialog">
@@ -32,44 +29,3 @@
         </div>
     </div>
 </div>
-
-@code {
-
-    private User _model = new User();
-
-    [Parameter]
-    public EventCallback<User> RoleCallback { get; set; }
-
-    private void OnFinish(EditContext editContext)
-    {
-        Console.WriteLine($"Success:{JsonSerializer.Serialize(_model)}");
-    }
-
-    private void OnFinishFailed(EditContext editContext)
-    {
-        Console.WriteLine($"Failed:{JsonSerializer.Serialize(_model)}");
-    }
-
-    public async void Authorization()
-    {
-        var users = new List<User>();
-        using (var httpClient = new HttpClient())
-        {
-            using (var response = await httpClient.GetAsync("https://localhost:7217/api/User"))
-            {
-                var apiResponse = await response.Content.ReadAsStringAsync();
-                users = JsonConvert.DeserializeObject<List<User>>(apiResponse);
-            }
-        }
-
-        foreach (var user in users)
-        {
-            if (user.Name == _model.Name && user.Password == _model.Password)
-            {
-                _model = user;
-            }
-        }
-
-        RoleCallback.InvokeAsync(_model);
-    }
-}

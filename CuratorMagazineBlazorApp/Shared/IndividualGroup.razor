@@ -1,0 +1,22 @@
+﻿@using CuratorMagazineWebAPI.Models.Entities.Domains
+
+
+<div class="row mt-3 group rounded">
+    <div class="col-md-1">
+        <img class="rounded img-fluid mt-1" src="../img/no-img.jpg" alt="">
+    </div>
+    <div class="col-md-8 mt-1">
+        <h5><a class="text-dark" style="text-decoration: none;">@group.Name</a></h5>
+        <p></p>
+        @*Пометка придумать как достать куратора*@
+        
+    </div>
+    <hr class="mb-0 mt-0">
+</div>
+
+@code {
+    [Parameter]
+    public Group group { get; set; }
+
+
+} 

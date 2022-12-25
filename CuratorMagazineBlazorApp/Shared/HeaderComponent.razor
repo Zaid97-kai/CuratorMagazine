@@ -1,12 +1,13 @@
 ﻿@using CuratorMagazineWebAPI.Models.Entities
+@using CuratorMagazineBlazorApp.Models.States
+@using CuratorMagazineWebAPI.Models.Entities.Domains
 <header  class="container">
     <MainHeader CurrentUser="@CurrentUser"></MainHeader>
-    <ModalWindowEnter RoleCallback="@SetUser"></ModalWindowEnter>
+    <CuratorMagazineBlazorApp.Shared.ModalWindows.ModalWindowEnter RoleCallback="@SetUser"></CuratorMagazineBlazorApp.Shared.ModalWindows.ModalWindowEnter>
     <ModalExitWindow UserNullCallback="@SetUserNull" ></ModalExitWindow>
     <NavBar></NavBar>
-    <RoleNavBar CurrentUser="@CurrentUser"></RoleNavBar>
-    <CarouselComponent></CarouselComponent>
-    <MainBody></MainBody>
+    <RoleNavBar CurrentUser="@CurrentUser" StateRoleNavBar="@StateRoleNavBar"  StateRoleNavBarCallback="@SetStateRoleNavBar"></RoleNavBar>
+    <MainBody StateRoleNavBar="@StateRoleNavBar"></MainBody>
 </header>
 
 @code {
@@ -19,6 +20,12 @@
     [Parameter]
     public EventCallback<User> UserNullCallback { get; set; }
 
+    [Parameter]
+    public StateRoleNavBar? StateRoleNavBar { get; set; } = new();
+
+    [Parameter]
+    public EventCallback<StateRoleNavBar> StateRoleNavBarCallback { get; set; }
+
     public void SetUser(User? user)
     {
         CurrentUser = user;
@@ -29,6 +36,12 @@
     {
         CurrentUser = null;
         UserNullCallback.InvokeAsync();
+    }
+
+    public void SetStateRoleNavBar(StateRoleNavBar roleNavBar)
+    {
+        StateRoleNavBar = roleNavBar;
+        StateRoleNavBarCallback.InvokeAsync(roleNavBar);
     }
 }
  

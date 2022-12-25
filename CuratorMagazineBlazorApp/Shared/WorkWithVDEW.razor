@@ -1,0 +1,56 @@
+﻿@using CuratorMagazineWebAPI.Models.Entities.Domains
+@*ЗАИД ПОМОГИ Пометка надо понять как вызвать данный компонент через нажатие кнопки (кнопка называется ЗАИД ПОМОГИ)*@
+<div class="container my-4 bg-secondary bg-opacity-50">
+    <div class="container-fluid">
+        <BodySearchBar></BodySearchBar>
+        <div class="overflow-auto container scroll" @onload="@GetVDEW">
+
+            @foreach (var item in _users)
+            {
+                if (item.Division == CurrentUser.Division && item.Role.Name == "admin2")
+                {
+                    <IndividualVDEW CurrentUser="item" DeleteVDEW="DeleteVDEW"></IndividualVDEW>
+                }
+                
+            }
+        </div>
+        <div class="row">
+            <div class="row-md text-center mb-2">
+                <hr>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addModal">Добавить</button>
+                <ModalAddVDEWWindow AddVDEW="AddVDEW"></ModalAddVDEWWindow>
+            </div>
+        </div>
+    </div>
+</div>
+            
+
+@code {
+    [Parameter]
+    public User? CurrentUser { get; set; }
+
+    private List<User>? _users = new();
+
+    void DeleteVDEW(User user)
+    {
+
+    }
+
+    void AddVDEW(User user)
+    {
+
+    }
+    
+    public async void GetVDEW()
+    {
+        _users = new List<User>();
+        using (var httpClient = new HttpClient())
+        {
+            using (var response = await httpClient.GetAsync("https://localhost:7217/api/User"))
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                _users = JsonConvert.DeserializeObject<List<User>>(apiResponse);
+            }
+        }
+    }
+}
