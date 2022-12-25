@@ -61,7 +61,7 @@ public class UserController : BaseController
     /// </summary>
     /// <param name="user">The user.</param>
     /// <returns>ActionResult&lt;User&gt;.</returns>
-    [HttpPost]
+    [HttpPost("Create")]
     public async Task<BaseResponseActionResult<User>> Post([FromBody] User? user)
     {
         if (user == null)

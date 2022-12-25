@@ -6,17 +6,17 @@ using Shared.Bases;
 namespace CuratorMagazineBlazorApp.Data.Services;
 
 /// <summary>
-/// Class UserService.
+/// Class ParentService.
 /// Implements the <see cref="BaseService" />
 /// </summary>
 /// <seealso cref="BaseService" />
-public class UserService : BaseService
+public class ParentService : BaseService
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="UserService" /> class.
+    /// Initializes a new instance of the <see cref="ParentService"/> class.
     /// </summary>
     /// <param name="httpClient">The HTTP client.</param>
-    public UserService(IHttpClientFactory httpClient) : base(httpClient)
+    public ParentService(IHttpClientFactory httpClient) : base(httpClient)
     {
     }
 
@@ -25,31 +25,31 @@ public class UserService : BaseService
     /// </summary>
     /// <param name="id">The identifier.</param>
     /// <returns>A Task&lt;BaseResponse`1&gt; representing the asynchronous operation.</returns>
-    public async Task<BaseResponse<User>> GetAsync(int id)
+    public async Task<BaseResponse<Parent>> GetAsync(int id)
     {
-        var dto = await SendAsync<User>($"{id}", HttpMethod.Get);
+        var dto = await SendAsync<Parent>($"{id}", HttpMethod.Get);
         return dto;
     }
 
     /// <summary>
     /// Create as an asynchronous operation.
     /// </summary>
-    /// <param name="user">The user.</param>
+    /// <param name="parent">The Parent.</param>
     /// <returns>A Task&lt;BaseResponse`1&gt; representing the asynchronous operation.</returns>
-    public async Task<BaseResponse<User>> CreateAsync(User user)
+    public async Task<BaseResponse<Parent>> CreateAsync(Parent parent)
     {
-        var ret = await SendAsync<User>($"Create", HttpMethod.Post, user);
+        var ret = await SendAsync<Parent>($"Create", HttpMethod.Post, parent);
         return ret;
     }
 
     /// <summary>
     /// Put as an asynchronous operation.
     /// </summary>
-    /// <param name="user">The user.</param>
+    /// <param name="parent">The Parent.</param>
     /// <returns>A Task&lt;BaseResponse`1&gt; representing the asynchronous operation.</returns>
-    public async Task<BaseResponse<User>> PutAsync(User user)
+    public async Task<BaseResponse<Parent>> PutAsync(Parent parent)
     {
-        var ret = await SendAsync<User>("", HttpMethod.Put, user);
+        var ret = await SendAsync<Parent>("", HttpMethod.Put, parent);
         return ret;
     }
 
@@ -58,9 +58,9 @@ public class UserService : BaseService
     /// </summary>
     /// <param name="id">The identifier.</param>
     /// <returns>A Task&lt;BaseResponse`1&gt; representing the asynchronous operation.</returns>
-    public async Task<BaseResponse<User>> DeleteAsync(int id)
+    public async Task<BaseResponse<Parent>> DeleteAsync(int id)
     {
-        var ret = await SendAsync<User>($"{id}", HttpMethod.Delete);
+        var ret = await SendAsync<Parent>($"{id}", HttpMethod.Delete);
         return ret;
     }
 
@@ -73,7 +73,7 @@ public class UserService : BaseService
     {
         var parameters = new Dictionary<string, string>
         {
-            { "query", query }, 
+            { "query", query },
             { "page", "1" }
         };
         var ret = await SendAsync<BaseDtoListResult>("GetList", HttpMethod.Post, parameters);
@@ -84,5 +84,5 @@ public class UserService : BaseService
     /// Gets the base path.
     /// </summary>
     /// <value>The base path.</value>
-    protected override string BasePath => "User";
+    protected override string BasePath => "Parent";
 }

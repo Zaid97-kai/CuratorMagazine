@@ -56,7 +56,7 @@ public partial class ModalWindowEnter
     /// </summary>
     public async void Authorization()
     {
-        var users = await UserService.PostAsync();
+        var users = await UserService?.PostAsync()!;
         var list = JsonConvert.DeserializeObject<List<User>>(users.Result.Items?.ToString() ?? string.Empty);
 
         await FindUser(list);
