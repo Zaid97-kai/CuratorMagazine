@@ -1,5 +1,6 @@
 ﻿using CuratorMagazineWebAPI.Controllers.Bases;
 using CuratorMagazineWebAPI.Models.Entities;
+using CuratorMagazineWebAPI.Models.Entities.Domains;
 using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

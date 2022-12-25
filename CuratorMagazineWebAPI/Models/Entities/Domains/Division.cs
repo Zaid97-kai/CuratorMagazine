@@ -1,7 +1,6 @@
 ﻿using System.Text.Json.Serialization;
-using CuratorMagazineWebAPI.Models.Entities.Domains;
 
-namespace CuratorMagazineWebAPI.Models.Entities;
+namespace CuratorMagazineWebAPI.Models.Entities.Domains;
 
 /// <summary>
 /// Class Division.

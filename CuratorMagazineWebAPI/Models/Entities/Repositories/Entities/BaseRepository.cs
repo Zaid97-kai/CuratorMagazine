@@ -4,8 +4,6 @@ using System.Linq.Expressions;
 using CuratorMagazineWebAPI.Models.Bases.Filters;
 using CuratorMagazineWebAPI.Models.Entities.Domains;
 using Shared.Bases.Dtos.BaseHelpers;
-using Microsoft.EntityFrameworkCore;
-using X.PagedList;
 
 namespace CuratorMagazineWebAPI.Models.Entities.Repositories.Entities;
 
@@ -15,7 +13,7 @@ namespace CuratorMagazineWebAPI.Models.Entities.Repositories.Entities;
 /// </summary>
 /// <typeparam name="T"></typeparam>
 /// <seealso cref="IBaseRepository{T}" />
-public class BaseRepository<T> : IBaseRepository<T> where T : class
+public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
 {
     /// <summary>
     /// The context
@@ -23,10 +21,24 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
     protected readonly CuratorMagazineContext Context;
 
     /// <summary>
+    /// Gets the list.
+    /// </summary>
+    /// <param name="filter">The filter.</param>
+    /// <returns>Task&lt;BaseDtoListResult&gt;.</returns>
+    public abstract Task<BaseDtoListResult> GetList(BaseFilterGetList filter);
+
+    /// <summary>
+    /// Gets the queue.
+    /// </summary>
+    /// <param name="filter">The filter.</param>
+    /// <returns>IQueryable&lt;User&gt;.</returns>
+    protected abstract IQueryable<T> _getQueue(BaseFilterGetList filter);
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="BaseRepository{T}" /> class.
     /// </summary>
     /// <param name="context">The context.</param>
-    public BaseRepository(CuratorMagazineContext context)
+    protected BaseRepository(CuratorMagazineContext context)
     {
         Context = context;
     }
@@ -37,25 +49,8 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
     /// <param name="entity">The entity.</param>
     public async Task Add(T entity)
     {
-        try
-        {
-            Context.Set<T>().Add(entity);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+        Context.Set<T>().Add(entity);
         await Context.SaveChangesAsync();
-    }
-
-    /// <summary>
-    /// Adds the range.
-    /// </summary>
-    /// <param name="entities">The entities.</param>
-    public async void AddRange(IEnumerable<T> entities)
-    {
-        Context.Set<T>().AddRange(entities);
     }
 
     /// <summary>
@@ -66,37 +61,6 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
     public async void Update(T entity)
     {
         Context.Set<T>().Update(entity);
-    }
-
-    /// <summary>Gets the list.</summary>
-    /// <param name="filter">The filter.</param>
-    /// <returns>Task&lt;BaseDtoListResult&gt;.</returns>
-    public async Task<BaseDtoListResult> GetList(BaseFilterGetList filter)
-    {
-        var ret = _getQueue(filter)
-            .Include(w => w.Role)
-                .ThenInclude(d => d.Users)
-            .Include(w => w.Division)
-                .ThenInclude(d => d.Users)
-            .ToPagedListAsync(filter.page, 300).Result;
-        var items = ret.Select(s => s);
-        return new BaseDtoListResult
-        {
-            Items = items,
-            PageCount = items.PageCount
-        };
-    }
-
-    private IQueryable<User> _getQueue(BaseFilterGetList filter)
-    {
-        var queue = Context.Users.AsQueryable();
-
-        var queries = (filter.query ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries);
-        foreach (var q in queries)
-            queue = queue.Where(w => EF.Functions.ILike(w.Name, $"%{q}%"));
-        
-        queue = queue.OrderBy(o => o.Name);
-        return queue;
     }
 
     /// <summary>
@@ -126,14 +90,5 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
     public async void Remove(T entity)
     {
         Context.Set<T>().Remove(entity);
-    }
-
-    /// <summary>
-    /// Removes the range.
-    /// </summary>
-    /// <param name="entities">The entities.</param>
-    public async void RemoveRange(IEnumerable<T> entities)
-    {
-        Context.Set<T>().RemoveRange(entities);
     }
 }
