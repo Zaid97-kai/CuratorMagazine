@@ -9,7 +9,14 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddAntDesign();
 builder.Services.AddCors();
 
+#region Services
 builder.Services.AddSingleton<UserService>();
+builder.Services.AddSingleton<DivisionService>();
+builder.Services.AddSingleton<GroupService>();
+builder.Services.AddSingleton<ParentService>();
+builder.Services.AddSingleton<RoleService>();
+#endregion
+
 
 builder.Services.AddHttpClient("CuratorMagazineWebAPI", client =>
 {

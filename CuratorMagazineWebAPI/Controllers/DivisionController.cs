@@ -80,7 +80,7 @@ public class DivisionController : BaseController
     /// <param name="division">The division.</param>
     /// <returns>BaseResponseActionResult&lt;Division&gt;.</returns>
     [HttpPut]
-    public async Task<BaseResponseActionResult<Division>> Put(Division? division)
+    public async Task<BaseResponseActionResult<Division>> Put([FromBody] Division? division)
     {
         if (division == null)
         {
