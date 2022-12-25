@@ -1,5 +1,4 @@
-﻿using CuratorMagazineWebAPI.Models.Entities;
-using CuratorMagazineWebAPI.Models.Entities.Domains;
+﻿using CuratorMagazineWebAPI.Models.Entities.Domains;
 using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,8 +9,6 @@ namespace CuratorMagazineWebAPI.Controllers;
 /// Implements the <see cref="Controller" />
 /// </summary>
 /// <seealso cref="Controller" />
-[ApiController]
-[Route("api/[controller]")]
 public class ParentController : Controller
 {
     /// <summary>
@@ -20,7 +17,7 @@ public class ParentController : Controller
     private readonly IParentRepository _repository;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ParentController"/> class.
+    /// Initializes a new instance of the <see cref="ParentController" /> class.
     /// </summary>
     /// <param name="repository">The repository.</param>
     public ParentController(IParentRepository repository)

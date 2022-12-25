@@ -1,4 +1,4 @@
-﻿using CuratorMagazineWebAPI.Models.Entities;
+﻿using CuratorMagazineWebAPI.Controllers.Bases;
 using CuratorMagazineWebAPI.Models.Entities.Domains;
 using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -7,12 +7,10 @@ namespace CuratorMagazineWebAPI.Controllers;
 
 /// <summary>
 /// Class RoleController.
-/// Implements the <see cref="ControllerBase" />
+/// Implements the <see cref="BaseController" />
 /// </summary>
-/// <seealso cref="ControllerBase" />
-[ApiController]
-[Route("api/[controller]")]
-public class RoleController : ControllerBase
+/// <seealso cref="BaseController" />
+public class RoleController : BaseController
 {
     /// <summary>
     /// The repository
@@ -20,7 +18,7 @@ public class RoleController : ControllerBase
     private readonly IRoleRepository _repository;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RoleController"/> class.
+    /// Initializes a new instance of the <see cref="RoleController" /> class.
     /// </summary>
     /// <param name="repository">The repository.</param>
     public RoleController(IRoleRepository repository)

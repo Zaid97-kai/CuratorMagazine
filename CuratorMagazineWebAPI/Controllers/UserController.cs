@@ -1,6 +1,6 @@
-﻿using CuratorMagazineWebAPI.Models.Bases.ActionResults;
+﻿using CuratorMagazineWebAPI.Controllers.Bases;
+using CuratorMagazineWebAPI.Models.Bases.ActionResults;
 using CuratorMagazineWebAPI.Models.Bases.Filters;
-using CuratorMagazineWebAPI.Models.Entities;
 using CuratorMagazineWebAPI.Models.Entities.Domains;
 using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -13,9 +13,7 @@ namespace CuratorMagazineWebAPI.Controllers;
 /// Implements the <see cref="Controller" />
 /// </summary>
 /// <seealso cref="Controller" />
-[ApiController]
-[Route("api/[controller]")]
-public class UserController : Controller
+public class UserController : BaseController
 {
     /// <summary>
     /// The repository

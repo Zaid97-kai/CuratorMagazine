@@ -1,4 +1,5 @@
-﻿using CuratorMagazineWebAPI.Models.Entities;
+﻿using CuratorMagazineWebAPI.Controllers.Bases;
+using CuratorMagazineWebAPI.Models.Entities;
 using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,12 +7,10 @@ namespace CuratorMagazineWebAPI.Controllers;
 
 /// <summary>
 /// Class DivisionController.
-/// Implements the <see cref="Controller" />
+/// Implements the <see cref="BaseController" />
 /// </summary>
-/// <seealso cref="Controller" />
-[ApiController]
-[Route("api/[controller]")]
-public class DivisionController : Controller
+/// <seealso cref="BaseController" />
+public class DivisionController : BaseController
 {
     /// <summary>
     /// The repository

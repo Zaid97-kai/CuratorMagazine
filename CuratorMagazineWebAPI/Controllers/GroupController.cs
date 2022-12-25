@@ -1,4 +1,4 @@
-﻿using CuratorMagazineWebAPI.Models.Entities;
+﻿using CuratorMagazineWebAPI.Controllers.Bases;
 using CuratorMagazineWebAPI.Models.Entities.Domains;
 using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -7,12 +7,10 @@ namespace CuratorMagazineWebAPI.Controllers;
 
 /// <summary>
 /// Class GroupController.
-/// Implements the <see cref="Controller" />
+/// Implements the <see cref="BaseController" />
 /// </summary>
-/// <seealso cref="Controller" />
-[ApiController]
-[Route("api/[controller]")]
-public class GroupController : Controller
+/// <seealso cref="BaseController" />
+public class GroupController : BaseController
 {
     /// <summary>
     /// The unit of work
@@ -20,9 +18,9 @@ public class GroupController : Controller
     private readonly IGroupRepository _repository;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GroupController"/> class.
+    /// Initializes a new instance of the <see cref="GroupController" /> class.
     /// </summary>
-    /// <param name="unitOfWork">The unit of work.</param>
+    /// <param name="repository">The repository.</param>
     public GroupController(IGroupRepository repository)
     {
         _repository = repository;
