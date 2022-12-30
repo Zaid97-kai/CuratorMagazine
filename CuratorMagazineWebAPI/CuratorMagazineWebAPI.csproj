@@ -7,6 +7,8 @@
 		<UserSecretsId>9abf6332-3033-466f-8970-c661fd1f1c5f</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<Copyright>Zaid97-kai</Copyright>
+		<RepositoryUrl>https://github.com/Zaid97-kai/CuratorMagazine</RepositoryUrl>
 	</PropertyGroup>
 
   <ItemGroup>
