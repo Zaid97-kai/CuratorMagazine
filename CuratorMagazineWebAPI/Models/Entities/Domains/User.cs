@@ -1,4 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// ***********************************************************************
+// Assembly         : CuratorMagazineWebAPI
+// Author           : Zaid
+// Created          : 12-19-2022
+//
+// Last Modified By : Zaid
+// Last Modified On : 12-22-2022
+// ***********************************************************************
+// <copyright file="User.cs" company="CuratorMagazineWebAPI">
+//     Zaid97-kai
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System.ComponentModel.DataAnnotations;
 
 namespace CuratorMagazineWebAPI.Models.Entities.Domains;
 

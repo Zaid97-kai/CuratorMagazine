@@ -1,4 +1,17 @@
-﻿using Shared.Bases.Dtos.BaseHelpers;
+﻿// ***********************************************************************
+// Assembly         : CuratorMagazineWebAPI
+// Author           : Zaid
+// Created          : 11-04-2022
+//
+// Last Modified By : Zaid
+// Last Modified On : 12-25-2022
+// ***********************************************************************
+// <copyright file="ParentController.cs" company="CuratorMagazineWebAPI">
+//     Zaid97-kai
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Shared.Bases.Dtos.BaseHelpers;
 using Microsoft.AspNetCore.Mvc;
 using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 using CuratorMagazineWebAPI.Models.Entities.Domains;

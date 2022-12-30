@@ -1,4 +1,17 @@
-﻿using CuratorMagazineWebAPI.Models.Bases.Filters;
+﻿// ***********************************************************************
+// Assembly         : CuratorMagazineWebAPI
+// Author           : Zaid
+// Created          : 12-25-2022
+//
+// Last Modified By : Zaid
+// Last Modified On : 12-25-2022
+// ***********************************************************************
+// <copyright file="UserRepository.cs" company="CuratorMagazineWebAPI">
+//     Zaid97-kai
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using CuratorMagazineWebAPI.Models.Bases.Filters;
 using CuratorMagazineWebAPI.Models.Context;
 using CuratorMagazineWebAPI.Models.Entities.Domains;
 using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;

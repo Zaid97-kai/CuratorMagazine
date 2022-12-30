@@ -1,4 +1,17 @@
-﻿using Shared.Bases.Dtos.BaseHelpers;
+﻿// ***********************************************************************
+// Assembly         : CuratorMagazineWebAPI
+// Author           : Zaid
+// Created          : 12-21-2022
+//
+// Last Modified By : Zaid
+// Last Modified On : 12-25-2022
+// ***********************************************************************
+// <copyright file="IBaseRepository.cs" company="CuratorMagazineWebAPI">
+//     Zaid97-kai
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Shared.Bases.Dtos.BaseHelpers;
 using System.Linq.Expressions;
 using CuratorMagazineWebAPI.Models.Bases.Filters;
 
@@ -35,17 +48,20 @@ public interface IBaseRepository<T> where T : class
     /// Adds the specified entity.
     /// </summary>
     /// <param name="entity">The entity.</param>
+    /// <returns>Task.</returns>
     Task Add(T entity);
 
     /// <summary>
     /// Updates the specified entity.
     /// </summary>
     /// <param name="entity">The entity.</param>
+    /// <returns>Task.</returns>
     Task Update(T entity);
 
     /// <summary>
     /// Removes the specified entity.
     /// </summary>
     /// <param name="entity">The entity.</param>
+    /// <returns>Task.</returns>
     Task Remove(T entity);
 }

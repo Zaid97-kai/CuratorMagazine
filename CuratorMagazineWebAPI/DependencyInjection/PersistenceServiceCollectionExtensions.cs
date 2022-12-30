@@ -1,4 +1,17 @@
-﻿using CuratorMagazineWebAPI.Models.Context;
+﻿// ***********************************************************************
+// Assembly         : CuratorMagazineWebAPI
+// Author           : Zaid
+// Created          : 11-03-2022
+//
+// Last Modified By : Zaid
+// Last Modified On : 12-25-2022
+// ***********************************************************************
+// <copyright file="PersistenceServiceCollectionExtensions.cs" company="CuratorMagazineWebAPI">
+//     Zaid97-kai
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using CuratorMagazineWebAPI.Models.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace CuratorMagazineWebAPI.DependencyInjection;
