@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/Zaid97-kai/CuratorMagazine.git"
   },
+  "publishConfig": {
+    "@YOUR-USERNAME:registry": "https://npm.pkg.github.com"
+  },
   "keywords": [
     "123"
   ],
