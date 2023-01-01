@@ -33,7 +33,7 @@ public static class PersistenceServiceCollectionExtensions
         services.AddDbContext<CuratorMagazineContext>(options =>
         {
             //options.UseSqlServer(connectionString);
-            options.UseNpgsql(connectionString);
+            //options.UseNpgsql(connectionString);
         });
         services.AddScoped<ICuratorMagazineContext>(provider => provider.GetService<CuratorMagazineContext>());
         return services;
