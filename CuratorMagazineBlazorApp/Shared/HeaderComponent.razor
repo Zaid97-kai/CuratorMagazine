@@ -7,7 +7,7 @@
     <ModalExitWindow UserNullCallback="@SetUserNull" ></ModalExitWindow>
     <NavBar></NavBar>
     <RoleNavBar CurrentUser="@CurrentUser" StateRoleNavBar="@StateRoleNavBar"  StateRoleNavBarCallback="@SetStateRoleNavBar"></RoleNavBar>
-    <MainBody StateRoleNavBar="@StateRoleNavBar"></MainBody>
+    <MainBody CurrentUser="@CurrentUser" StateRoleNavBar="@StateRoleNavBar"></MainBody>
 </header>
 
 @code {
