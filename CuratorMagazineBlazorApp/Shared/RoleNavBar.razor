@@ -6,10 +6,10 @@
     <div class="collapse" id="navbarToggleExternalContent">
         <ul class="nav nav-pills nav-fill bg-secondary bg-opacity-50">
             <li class="nav-item">
-                <a class="nav-link text-white" href="../DirectorEW/dew1.html">РАБОТА С ЗАМЕСТИТЕЛЕМ ДИРКЕТОРА ВР</a>
+                <a class="nav-link text-white" @onclick="ChangeOnHeadStateRoleNavBar">РАБОТА С ЗАМЕСТИТЕЛЕМ ДИРКЕТОРА ВР</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" href="../DirectorEW/dew2.html">СБОР СТАТИСТИКИ</a>
+                <a class="nav-link text-white" @onclick="ChangeOnViceStateRoleNavBar">СБОР СТАТИСТИКИ</a>
             </li>
         </ul>
     </div>
@@ -42,19 +42,7 @@ else if (CurrentUser?.RoleId == 3)
 }
 else
 {
-    <div class="collapse " id="navbarToggleExternalContent">
-        <ul class="nav nav-pills nav-fill bg-secondary bg-opacity-50">
-            <li class="nav-item">
-                <a class="nav-link text-white" @onclick="ChangeOnHeadStateRoleNavBar">НАЧАЛЬНИК УВР</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" @onclick="ChangeOnViceStateRoleNavBar">ЗАМЕСТИТЕЛЬ ДИРЕКТОРА ПО ВР</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" @onclick="ChangeTutorOnStateRoleNavBar">КУРАТОР-НАСТАВНИК</a>
-            </li>
-        </ul>
-    </div>
+
 }
 @code {
     [Parameter]

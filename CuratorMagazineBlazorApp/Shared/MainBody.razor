@@ -1,9 +1,11 @@
-﻿@switch (@StateRoleNavBar?.RoleName)
+﻿@using CuratorMagazineWebAPI.Models.Entities.Domains
+@switch (@StateRoleNavBar?.RoleName)
 {
     case "Head":
-        <WorkWithVDEW></WorkWithVDEW>
+        <WorkWithVDEW CurrentUser="CurrentUser"></WorkWithVDEW>
         break;
     case "Vice":
+        <StatsCollect></StatsCollect>
         break;
     case "Tutor":
         break;
@@ -14,6 +16,8 @@
 }
 
 @code {
+    [Parameter]
+    public User? CurrentUser { get; set; }
 
     [Parameter]
     public StateRoleNavBar? StateRoleNavBar { get; set; }
