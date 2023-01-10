@@ -1,4 +1,17 @@
-﻿namespace CuratorMagazineWebAPI.Models.Bases.Filters;
+﻿// ***********************************************************************
+// Assembly         : CuratorMagazineWebAPI
+// Author           : Zaid
+// Created          : 12-21-2022
+//
+// Last Modified By : Zaid
+// Last Modified On : 12-21-2022
+// ***********************************************************************
+// <copyright file="BaseFilterGetList.cs" company="CuratorMagazineWebAPI">
+//     Zaid97-kai
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+namespace CuratorMagazineWebAPI.Models.Bases.Filters;
 
 /// <summary>
 /// Class BaseFilterGetList.

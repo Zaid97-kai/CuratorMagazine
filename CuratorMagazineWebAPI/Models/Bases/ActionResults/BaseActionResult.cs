@@ -1,4 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿// ***********************************************************************
+// Assembly         : CuratorMagazineWebAPI
+// Author           : Zaid
+// Created          : 12-21-2022
+//
+// Last Modified By : Zaid
+// Last Modified On : 12-21-2022
+// ***********************************************************************
+// <copyright file="BaseActionResult.cs" company="CuratorMagazineWebAPI">
+//     Zaid97-kai
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Microsoft.AspNetCore.Mvc;
 using Shared.Bases;
 using System.Net;
 

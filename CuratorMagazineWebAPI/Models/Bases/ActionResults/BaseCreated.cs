@@ -1,4 +1,17 @@
-﻿using System.Net;
+﻿// ***********************************************************************
+// Assembly         : CuratorMagazineWebAPI
+// Author           : Zaid
+// Created          : 12-22-2022
+//
+// Last Modified By : Zaid
+// Last Modified On : 12-22-2022
+// ***********************************************************************
+// <copyright file="BaseCreated.cs" company="CuratorMagazineWebAPI">
+//     Zaid97-kai
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System.Net;
 
 namespace CuratorMagazineWebAPI.Models.Bases.ActionResults;
 

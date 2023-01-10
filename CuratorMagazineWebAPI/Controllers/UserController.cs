@@ -1,10 +1,23 @@
-﻿using CuratorMagazineWebAPI.Models.Bases.ActionResults;
-using CuratorMagazineWebAPI.Models.Bases.Filters;
-using CuratorMagazineWebAPI.Models.Entities;
-using CuratorMagazineWebAPI.Models.Entities.Domains;
-using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿// ***********************************************************************
+// Assembly         : CuratorMagazineWebAPI
+// Author           : Zaid
+// Created          : 11-04-2022
+//
+// Last Modified By : Zaid
+// Last Modified On : 12-25-2022
+// ***********************************************************************
+// <copyright file="UserController.cs" company="CuratorMagazineWebAPI">
+//     Zaid97-kai
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 using Shared.Bases.Dtos.BaseHelpers;
+using Microsoft.AspNetCore.Mvc;
+using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
+using CuratorMagazineWebAPI.Models.Entities.Domains;
+using CuratorMagazineWebAPI.Models.Bases.Filters;
+using CuratorMagazineWebAPI.Models.Bases.ActionResults;
+using CuratorMagazineWebAPI.Controllers.Bases;
 
 namespace CuratorMagazineWebAPI.Controllers;
 
@@ -13,9 +26,7 @@ namespace CuratorMagazineWebAPI.Controllers;
 /// Implements the <see cref="Controller" />
 /// </summary>
 /// <seealso cref="Controller" />
-[ApiController]
-[Route("api/[controller]")]
-public class UserController : Controller
+public class UserController : BaseController
 {
     /// <summary>
     /// The repository
@@ -23,7 +34,7 @@ public class UserController : Controller
     private readonly IUserRepository _repository;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UserController"/> class.
+    /// Initializes a new instance of the <see cref="UserController" /> class.
     /// </summary>
     /// <param name="repository">The repository.</param>
     public UserController(IUserRepository repository)
@@ -61,33 +72,33 @@ public class UserController : Controller
     /// <summary>
     /// Posts the specified user.
     /// </summary>
-    /// <param name="User">The user.</param>
+    /// <param name="user">The user.</param>
     /// <returns>ActionResult&lt;User&gt;.</returns>
-    [HttpPost]
-    public async Task<ActionResult<User>> Post([FromBody] User? User)
+    [HttpPost("Create")]
+    public async Task<BaseResponseActionResult<User>> Post([FromBody] User? user)
     {
-        if (User == null)
+        if (user == null)
             return new BaseBadRequest();
 
-        await _repository.Add(User);
-        return Ok(User);
+        await _repository.Add(user);
+        return user;
     }
 
     /// <summary>
     /// Puts the specified user.
     /// </summary>
-    /// <param name="User">The user.</param>
+    /// <param name="user">The user.</param>
     /// <returns>ActionResult&lt;User&gt;.</returns>
     [HttpPut]
-    public async Task<ActionResult<User>> Put(User? User)
+    public async Task<BaseResponseActionResult<User>> Put(User? user)
     {
-        if (User == null)
+        if (user == null)
         {
             return BadRequest();
         }
 
-        _repository.Update(User);
-        return Ok(User);
+        await _repository.Update(user);
+        return user;
     }
 
     /// <summary>
@@ -96,12 +107,14 @@ public class UserController : Controller
     /// <param name="id">The identifier.</param>
     /// <returns>ActionResult&lt;User&gt;.</returns>
     [HttpDelete("{id}")]
-    public async Task<ActionResult<User>> Delete(int id)
+    public async Task<BaseResponseActionResult<User>> Delete(int id)
     {
-        var User = _repository.Find(x => x.Id == id).Result.FirstOrDefault();
+        var user = _repository.Find(x => x.Id == id).Result.FirstOrDefault();
 
-        if (User == null) return NotFound();
-        _repository.Remove(User);
-        return Ok(User);
+        if (user == null) 
+            return NotFound();
+
+        await _repository.Remove(user);
+        return user;
     }
 }

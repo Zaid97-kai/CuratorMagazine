@@ -1,4 +1,17 @@
-﻿using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
+﻿// ***********************************************************************
+// Assembly         : CuratorMagazineWebAPI
+// Author           : Zaid
+// Created          : 12-22-2022
+//
+// Last Modified By : Zaid
+// Last Modified On : 12-22-2022
+// ***********************************************************************
+// <copyright file="IBaseRepositoryHaveDto.cs" company="CuratorMagazineWebAPI">
+//     Zaid97-kai
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
 using Shared.Bases.Interfaces.IHaves;
 
 namespace CuratorMagazineWebAPI.Models.Bases.IBases;

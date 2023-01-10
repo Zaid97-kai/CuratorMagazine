@@ -1,4 +1,17 @@
-﻿using CuratorMagazineWebAPI.Models.Entities;
+﻿// ***********************************************************************
+// Assembly         : CuratorMagazineWebAPI
+// Author           : Zaid
+// Created          : 11-03-2022
+//
+// Last Modified By : Zaid
+// Last Modified On : 12-22-2022
+// ***********************************************************************
+// <copyright file="ICuratorMagazineContext.cs" company="CuratorMagazineWebAPI">
+//     Zaid97-kai
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using CuratorMagazineWebAPI.Models.Entities;
 using CuratorMagazineWebAPI.Models.Entities.Domains;
 using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

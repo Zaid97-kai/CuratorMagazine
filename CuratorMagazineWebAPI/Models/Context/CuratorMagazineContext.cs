@@ -1,4 +1,17 @@
-﻿using CuratorMagazineWebAPI.Models.Entities;
+﻿// ***********************************************************************
+// Assembly         : CuratorMagazineWebAPI
+// Author           : Zaid
+// Created          : 11-03-2022
+//
+// Last Modified By : Zaid
+// Last Modified On : 12-22-2022
+// ***********************************************************************
+// <copyright file="CuratorMagazineContext.cs" company="CuratorMagazineWebAPI">
+//     Zaid97-kai
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using CuratorMagazineWebAPI.Models.Entities;
 using CuratorMagazineWebAPI.Models.Entities.Domains;
 using CuratorMagazineWebAPI.Models.EntityTypeConfigurations;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +31,7 @@ namespace CuratorMagazineWebAPI.Models.Context
     public class CuratorMagazineContext : DbContext, ICuratorMagazineContext, Microsoft.AspNetCore.DataProtection.EntityFrameworkCore.IDataProtectionKeyContext
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CuratorMagazineContext"/> class.
+        /// Initializes a new instance of the <see cref="CuratorMagazineContext" /> class.
         /// </summary>
         /// <param name="options">The options.</param>
         public CuratorMagazineContext(DbContextOptions<CuratorMagazineContext> options)
@@ -49,10 +62,28 @@ namespace CuratorMagazineWebAPI.Models.Context
             base.OnModelCreating(modelBuilder);
         }
 
+        /// <summary>
+        /// <para>
+        /// Override this method to configure the database (and other options) to be used for this context.
+        /// This method is called for each instance of the context that is created.
+        /// The base implementation does nothing.
+        /// </para>
+        /// <para>
+        /// In situations where an instance of <see cref="T:Microsoft.EntityFrameworkCore.DbContextOptions" /> may or may not have been passed
+        /// to the constructor, you can use <see cref="P:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.IsConfigured" /> to determine if
+        /// the options have already been set, and skip some or all of the logic in
+        /// <see cref="M:Microsoft.EntityFrameworkCore.DbContext.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)" />.
+        /// </para>
+        /// </summary>
+        /// <param name="optionsBuilder">A builder used to create or modify options for this context. Databases (and other extensions)
+        /// typically define extension methods on this object that allow you to configure the context.</param>
+        /// <remarks>See <see href="https://aka.ms/efcore-docs-dbcontext">DbContext lifetime, configuration, and initialization</see>
+        /// for more information.</remarks>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder
-                .UseLazyLoadingProxies();
+            //optionsBuilder.UseSqlite("Data Source=helloapp456.db");
+
+            optionsBuilder.UseLazyLoadingProxies();
         }
 
         #region Entities

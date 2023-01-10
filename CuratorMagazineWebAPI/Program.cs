@@ -1,3 +1,16 @@
+// ***********************************************************************
+// Assembly         : CuratorMagazineWebAPI
+// Author           : Zaid
+// Created          : 11-03-2022
+//
+// Last Modified By : Zaid
+// Last Modified On : 12-25-2022
+// ***********************************************************************
+// <copyright file="Program.cs" company="CuratorMagazineWebAPI">
+//     Zaid97-kai
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 using Microsoft.AspNetCore.DataProtection;
 using CuratorMagazineWebAPI.DependencyInjection;
 using CuratorMagazineWebAPI.Models.Context;
@@ -24,7 +37,6 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddPersistence(builder.Configuration);
 
 #region Repositories
-builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddTransient<IDivisionRepository, DivisionRepository>();
 builder.Services.AddTransient<IGroupRepository, GroupRepository>();
 builder.Services.AddTransient<IParentRepository, ParentRepository>();

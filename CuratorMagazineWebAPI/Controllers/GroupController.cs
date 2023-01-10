@@ -1,18 +1,32 @@
-﻿using CuratorMagazineWebAPI.Models.Entities;
-using CuratorMagazineWebAPI.Models.Entities.Domains;
-using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
+﻿// ***********************************************************************
+// Assembly         : CuratorMagazineWebAPI
+// Author           : Zaid
+// Created          : 11-04-2022
+//
+// Last Modified By : Zaid
+// Last Modified On : 12-25-2022
+// ***********************************************************************
+// <copyright file="GroupController.cs" company="CuratorMagazineWebAPI">
+//     Zaid97-kai
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Shared.Bases.Dtos.BaseHelpers;
 using Microsoft.AspNetCore.Mvc;
+using CuratorMagazineWebAPI.Models.Entities.Repositories.Interfaces;
+using CuratorMagazineWebAPI.Models.Entities.Domains;
+using CuratorMagazineWebAPI.Models.Bases.Filters;
+using CuratorMagazineWebAPI.Models.Bases.ActionResults;
+using CuratorMagazineWebAPI.Controllers.Bases;
 
 namespace CuratorMagazineWebAPI.Controllers;
 
 /// <summary>
 /// Class GroupController.
-/// Implements the <see cref="Controller" />
+/// Implements the <see cref="BaseController" />
 /// </summary>
-/// <seealso cref="Controller" />
-[ApiController]
-[Route("api/[controller]")]
-public class GroupController : Controller
+/// <seealso cref="BaseController" />
+public class GroupController : BaseController
 {
     /// <summary>
     /// The unit of work
@@ -20,9 +34,9 @@ public class GroupController : Controller
     private readonly IGroupRepository _repository;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GroupController"/> class.
+    /// Initializes a new instance of the <see cref="GroupController" /> class.
     /// </summary>
-    /// <param name="unitOfWork">The unit of work.</param>
+    /// <param name="repository">The repository.</param>
     public GroupController(IGroupRepository repository)
     {
         _repository = repository;
@@ -32,62 +46,78 @@ public class GroupController : Controller
     /// Gets the specified identifier.
     /// </summary>
     /// <param name="id">The identifier.</param>
-    /// <returns>ActionResult&lt;Group&gt;.</returns>
+    /// <returns>BaseResponseActionResult&lt;Group&gt;.</returns>
     [HttpGet("{id}")]
-    public async Task<ActionResult<Group>> Get(int id)
+    public async Task<BaseResponseActionResult<Group>> Get(int id)
     {
-        var Group = await _repository.GetById(id);
-        if (Group == null)
+        var group = await _repository.GetById(id);
+
+        if (group == null)
             return NotFound();
-        return new ObjectResult(Group);
+
+        return group;
+    }
+
+    /// <summary>
+    /// Gets the list.
+    /// </summary>
+    /// <param name="data">The data.</param>
+    /// <returns>BaseResponseActionResult&lt;BaseDtoListResult&gt;.</returns>
+    [HttpPost("GetList")]
+    public async Task<BaseResponseActionResult<BaseDtoListResult>> GetList([FromBody] BaseFilterGetList data)
+    {
+        var ret = await _repository.GetList(data);
+        return ret;
     }
 
     /// <summary>
     /// Posts the specified group.
     /// </summary>
-    /// <param name="Group">The group.</param>
-    /// <returns>ActionResult&lt;Group&gt;.</returns>
+    /// <param name="group">The group.</param>
+    /// <returns>BaseResponseActionResult&lt;Group&gt;.</returns>
     [HttpPost]
-    public async Task<ActionResult<Group>> Post(Group? Group)
+    public async Task<BaseResponseActionResult<Group>> Post(Group? group)
     {
-        if (Group == null)
+        if (group == null)
         {
             return BadRequest();
         }
 
-        _repository.Add(Group);
-        return Ok(Group);
+        await _repository.Add(group);
+        return group;
     }
 
     /// <summary>
     /// Puts the specified group.
     /// </summary>
-    /// <param name="Group">The group.</param>
-    /// <returns>ActionResult&lt;Group&gt;.</returns>
+    /// <param name="group">The group.</param>
+    /// <returns>BaseResponseActionResult&lt;Group&gt;.</returns>
     [HttpPut]
-    public async Task<ActionResult<Group>> Put(Group? Group)
+    public async Task<BaseResponseActionResult<Group>> Put(Group? group)
     {
-        if (Group == null)
+        if (group == null)
         {
             return BadRequest();
         }
 
-        _repository.Update(Group);
-        return Ok(Group);
+        await _repository.Update(group);
+        return group;
     }
 
     /// <summary>
     /// Deletes the specified identifier.
     /// </summary>
     /// <param name="id">The identifier.</param>
-    /// <returns>ActionResult&lt;Group&gt;.</returns>
+    /// <returns>BaseResponseActionResult&lt;Group&gt;.</returns>
     [HttpDelete("{id}")]
-    public async Task<ActionResult<Group>> Delete(int id)
+    public async Task<BaseResponseActionResult<Group>> Delete(int id)
     {
-        var Group = _repository.Find(x => x.Id == id).Result.FirstOrDefault();
+        var group = _repository.Find(x => x.Id == id).Result.FirstOrDefault();
 
-        if (Group == null) return NotFound();
-        _repository.Remove(Group);
-        return Ok(Group);
+        if (group == null)
+            return NotFound();
+
+        await _repository.Remove(group);
+        return group;
     }
 }

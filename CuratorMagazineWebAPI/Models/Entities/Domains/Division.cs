@@ -1,7 +1,19 @@
-﻿using System.Text.Json.Serialization;
-using CuratorMagazineWebAPI.Models.Entities.Domains;
+﻿// ***********************************************************************
+// Assembly         : CuratorMagazineWebAPI
+// Author           : Zaid
+// Created          : 12-19-2022
+//
+// Last Modified By : Zaid
+// Last Modified On : 12-25-2022
+// ***********************************************************************
+// <copyright file="Division.cs" company="CuratorMagazineWebAPI">
+//     Zaid97-kai
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System.Text.Json.Serialization;
 
-namespace CuratorMagazineWebAPI.Models.Entities;
+namespace CuratorMagazineWebAPI.Models.Entities.Domains;
 
 /// <summary>
 /// Class Division.

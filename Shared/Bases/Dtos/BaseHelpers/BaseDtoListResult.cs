@@ -10,6 +10,7 @@ public class BaseDtoListResult
     /// </summary>
     /// <value>The items.</value>
     public object? Items { get; set; }
+
     /// <summary>
     /// Gets or sets the page count.
     /// </summary>
