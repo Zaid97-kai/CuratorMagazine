@@ -81,7 +81,7 @@ namespace CuratorMagazineWebAPI.Models.Context
         /// for more information.</remarks>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=helloapp456.db");
+            //optionsBuilder.UseSqlite("Data Source=helloapp456.db");
 
             optionsBuilder.UseLazyLoadingProxies();
         }

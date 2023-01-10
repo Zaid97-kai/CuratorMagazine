@@ -33,6 +33,13 @@ public partial class ModalWindowEnter
     public UserService? UserService { get; set; }
 
     /// <summary>
+    /// Gets or sets the navigation manager.
+    /// </summary>
+    /// <value>The navigation manager.</value>
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = null!;
+
+    /// <summary>
     /// Called when [finish].
     /// </summary>
     /// <param name="editContext">The edit context.</param>
@@ -59,6 +66,11 @@ public partial class ModalWindowEnter
         var list = JsonConvert.DeserializeObject<List<User>>(users.Result.Items?.ToString() ?? string.Empty);
 
         await FindUser(list);
+
+        if (_model.Role?.Name == "Администратор")
+        {
+            NavigationManager.NavigateTo($"admin", true);
+        }
 
         await RoleCallback.InvokeAsync(_model);
     }
